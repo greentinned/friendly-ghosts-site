@@ -72,7 +72,7 @@ const Home: NextPage = () => {
                   <div className={styles.mintButtonWrapper}>
                     <MintButton
                       // title={`Mint for ${isLoading ? '...' : mintPrice} eth`}
-                      title="Mint comming soon"
+                      title="Mint coming soon"
                       onRelease={() => {}}
                     />
                     <Caption styles={[helperStyles.mobileHidden]}>
@@ -163,7 +163,7 @@ const DetailSection: FC = () => {
             subtitle="You pay only for mint"
           />
           <div className={styles.detailSectionMintButton}>
-            <MintButton title="Mint comming soon" onRelease={() => {}} />
+            <MintButton title="Mint coming soon" onRelease={() => {}} />
           </div>
         </div>
         <div className={visibility(styles.detailSectionGhosts, 'desktop')} />
@@ -198,7 +198,7 @@ const TraitsSection: FC = () => {
       <Visibility desktop>
         <TraitsSectionItem
           title="In cool glasses and suit"
-          src="/img/home/ghost_2.svg"
+          src="img/home/ghost_2.svg"
           reverse
         />
       </Visibility>
