@@ -44,18 +44,27 @@
 /* Color Theme */
 
 .theme__light {
-  --theme-main-background-rgb-vals: 18, 59, 107;
-  --theme-main-background: rgba(var(--theme-main-background-rgb-vals));
+  --theme-main-background-rgb-top-vals: 43, 96, 158;
+  --theme-main-background-rgb-bottom-vals: 18, 59, 107;
+  --theme-main-background: linear-gradient(
+    180deg,
+    rgb(var(--theme-main-background-rgb-top-vals)) 0%,
+    rgb(var(--theme-main-background-rgb-bottom-vals)) 100%
+  );
   --theme-minor-background: #e1f1f2;
   --theme-main-text: #fff;
   --theme-main-text-invert: #002636;
 }
 
 .theme__dark {
-  --theme-main-background-rgb-vals: 4, 28, 55;
-  --theme-main-background: rgba(var(--theme-main-background-rgb-vals));
-  --theme-minor-background-rgb-vals: 105, 141, 184;
-  --theme-minor-background: rgba(var(--theme-minor-background-rgb-vals));
+  --theme-main-background-rgb-top-vals: 4, 27, 55;
+  --theme-main-background-rgb-bottom-vals: 7, 46, 91;
+  --theme-main-background: linear-gradient(
+    180deg,
+    rgb(var(--theme-main-background-rgb-top-vals)) 0%,
+    rgb(var(--theme-main-background-rgb-bottom-vals)) 100%
+  );
+  --theme-minor-background: #698db8;
   --theme-main-text: #fff;
   --theme-main-text-invert: #002636;
 }

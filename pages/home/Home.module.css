@@ -1,5 +1,5 @@
 .container {
-  background-color: var(--theme-main-background);
+  background: var(--theme-main-background);
 }
 
 /* Elems */
