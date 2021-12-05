@@ -22,7 +22,6 @@ Modal.setAppElement('#__next')
 
 const Home: NextPage = () => {
   const systemTheme = useSystemTheme(true)
-  console.log(systemTheme)
 
   const [modalIsOpen, setModalOpen] = useState(false)
   const [walletAddress, setWalletAddress] = useState<string | undefined>(
@@ -49,6 +48,7 @@ const Home: NextPage = () => {
         isOpen={modalIsOpen}
         onRequestClose={() => setModalOpen(false)}
         contentLabel="Post modal"
+        overlayClassName={styles.modalOverlay}
       />
 
       <main className={styles.main}>
