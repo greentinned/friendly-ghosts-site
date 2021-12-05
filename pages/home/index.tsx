@@ -32,7 +32,9 @@ import {
 } from '../../components'
 import { visibility } from '../../components/visibility'
 import { randArb } from '../../helpers'
-import { env } from 'process'
+
+const metaUrl = process.env.NEXT_PUBLIC_HOST
+const metaPreviewUrl = `${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_HOST_ROOT}`
 
 Modal.setAppElement('#__next')
 
@@ -61,7 +63,7 @@ const Home: NextPage = () => {
 
         {/* <!-- Open Graph / Facebook --> */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={process.env.NEXT_PUBLIC_HOST} />
+        <meta property="og:url" content={metaUrl} />
         <meta
           property="og:title"
           content="Friendly Ghosts — Even ghosts deserve love <3"
@@ -70,14 +72,11 @@ const Home: NextPage = () => {
           property="og:description"
           content="Your non-toxic online identity for the most supportive community ever."
         />
-        <meta
-          property="og:image"
-          content={`${process.env.NEXT_PUBLIC_HOST}/img/post.png`}
-        />
+        <meta property="og:image" content={`${metaPreviewUrl}/img/post.png`} />
 
         {/* <!-- Twitter --> */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={process.env.NEXT_PUBLIC_HOST} />
+        <meta property="twitter:url" content={metaUrl} />
         <meta
           property="twitter:title"
           content="Friendly Ghosts — Even ghosts deserve love <3"
@@ -88,7 +87,7 @@ const Home: NextPage = () => {
         />
         <meta
           property="twitter:image"
-          content={`${process.env.NEXT_PUBLIC_HOST}/img/post.png`}
+          content={`${metaPreviewUrl}/img/post.png`}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
