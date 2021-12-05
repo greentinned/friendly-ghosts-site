@@ -32,6 +32,7 @@ import {
 } from '../../components'
 import { visibility } from '../../components/visibility'
 import { randArb } from '../../helpers'
+import { env } from 'process'
 
 Modal.setAppElement('#__next')
 
@@ -47,10 +48,47 @@ const Home: NextPage = () => {
   return (
     <div className={cn}>
       <Head>
-        <title>Friendly Ghosts</title>
+        {/* <!-- Primary Meta Tags --> */}
+        <title>Friendly Ghosts — Even ghosts deserve love &lt;3</title>
+        <meta
+          name="title"
+          content="Friendly Ghosts — Even ghosts deserve love <3"
+        />
         <meta
           name="description"
-          content="Even ghosts deserve love. Your non-toxic online identity for the most supportive community ever."
+          content="Your non-toxic online identity for the most supportive community ever."
+        />
+
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_HOST} />
+        <meta
+          property="og:title"
+          content="Friendly Ghosts — Even ghosts deserve love <3"
+        />
+        <meta
+          property="og:description"
+          content="Your non-toxic online identity for the most supportive community ever."
+        />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_HOST}/img/post.png`}
+        />
+
+        {/* <!-- Twitter --> */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={process.env.NEXT_PUBLIC_HOST} />
+        <meta
+          property="twitter:title"
+          content="Friendly Ghosts — Even ghosts deserve love <3"
+        />
+        <meta
+          property="twitter:description"
+          content="Your non-toxic online identity for the most supportive community ever."
+        />
+        <meta
+          property="twitter:image"
+          content={`${process.env.NEXT_PUBLIC_HOST}/img/post.png`}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
