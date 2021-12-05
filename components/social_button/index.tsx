@@ -1,12 +1,7 @@
-import Image from 'next/image'
+import Image from '../image'
 import styles from './SocialButton.module.css'
 import twitterSrc from './img/twitter.svg'
 import discordSrc from './img/discord.svg'
-
-// export enum SocialButtonType {
-//   twitter = 'twitter',
-//   discord = 'discord',
-// }
 
 export interface SocialButtonProps {
   url: string

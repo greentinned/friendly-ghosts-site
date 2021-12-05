@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import styles from './Logo.module.css'
 import logoGhost from './img/logo_ghost.svg'
 import logoText from './img/logo_text.svg'
+import Image from '../image'
 
 const Logo = () => {
   return (

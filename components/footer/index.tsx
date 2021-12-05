@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import styles from './Footer.module.css'
 import letteringSrc from './img/lettering.svg'
 import { Paragraph } from '../text'
+import Image from '../image'
 
 const Footer = () => {
   return (

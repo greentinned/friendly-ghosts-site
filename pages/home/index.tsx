@@ -2,7 +2,6 @@ import { FC, ReactNode, useState } from 'react'
 import Modal from 'react-modal'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import useSystemTheme from 'use-system-theme'
 import constStyles from '../../styles/constants.module.css'
 import helperStyles from '../../styles/helpers.module.css'
@@ -16,6 +15,7 @@ import {
   Hero,
   Paragraph,
   Caption,
+  Image,
 } from '../../components'
 
 Modal.setAppElement('#__next')
