@@ -417,14 +417,6 @@ const HonorariesSection: FC = () => {
         <Paragraph>All this great people with us</Paragraph>
       </div>
       <div className={styles.honorariesSectionPersons}>
-        {/* {honorData.map((i, idx) => (
-          <HonorariesSectionPerson
-            key={`${i.twitter}_${idx}`}
-            src={i.src}
-            twitter={i.twitter}
-            twitterUrl={i.twitterUrl}
-          />
-        ))} */}
         {isLoading
           ? ''
           : data.map((i, idx) => (
@@ -442,7 +434,6 @@ const HonorariesSection: FC = () => {
 
 const HonorariesSectionPerson: FC<{
   src: StaticImageData
-  // src: string
   twitter: string
   twitterUrl: string
 }> = ({ src, twitter, twitterUrl }) => {
