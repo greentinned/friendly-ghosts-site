@@ -79,8 +79,7 @@ const Home: NextPage = () => {
                   </Paragraph>
                   <div className={styles.mintButtonWrapper}>
                     <MintButton
-                      title="Mint"
-                      subtitle="0.02 eth"
+                      title="Mint for 0.02 eth"
                       onRelease={() => setModalOpen(true)}
                       wide
                     />
