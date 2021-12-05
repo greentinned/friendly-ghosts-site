@@ -4,5 +4,6 @@ import MintButton from './mint_button'
 import WalletButton from './wallet_button'
 import Logo from './logo'
 import SocialButton from './social_button'
+import Footer from './footer'
 
-export { Header, Button, MintButton, WalletButton, Logo, SocialButton }
+export { Header, Button, MintButton, WalletButton, Logo, SocialButton, Footer }

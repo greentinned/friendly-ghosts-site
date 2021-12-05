@@ -5,7 +5,7 @@ import Head from 'next/head'
 import useSystemTheme from 'use-system-theme'
 import constStyles from '../../styles/constants.module.css'
 import styles from './Home.module.css'
-import { Header, MintButton, WalletButton } from '../../components'
+import { Header, MintButton, Footer } from '../../components'
 
 Modal.setAppElement('#__next')
 
@@ -66,8 +66,7 @@ const Home: NextPage = () => {
           <WalletButton error="wrong network" onRelease={() => {}} /> */}
         </div>
       </main>
-
-      <footer className={styles.footer}></footer>
+      <Footer />
     </div>
   )
 }
