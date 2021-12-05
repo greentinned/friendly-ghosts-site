@@ -3,6 +3,7 @@
 }
 
 /* Elems */
+
 .modalOverlay {
   position: fixed;
   inset: 0px;
@@ -19,13 +20,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* padding: 0 56px; */
-  /* padding-top: 120px; */
   padding-top: 256px;
 }
 @media (max-width: 640px) {
   .contentWrapper {
-    /* padding: 0 16px; */
     padding-top: 180px;
   }
 }
@@ -34,11 +32,6 @@
   display: flex;
   width: 100%;
 }
-/* .mainSectionLead {
-  display: flex;
-  flex-grow: 1;
-  width: 25%;
-} */
 .mainSectionCenter {
   display: flex;
   justify-content: center;
@@ -54,7 +47,6 @@
 .mainSectionTrail {
   display: flex;
   position: relative;
-  /* flex-grow: 1; */
   width: 25%;
   overflow: hidden;
 }

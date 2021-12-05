@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import useSystemTheme from 'use-system-theme'
+import { useMintPrice } from '../../hooks'
 import constStyles from '../../styles/constants.module.css'
 import helperStyles from '../../styles/helpers.module.css'
 import styles from './Home.module.css'
@@ -24,10 +25,8 @@ const Home: NextPage = () => {
   const systemTheme = useSystemTheme(true)
 
   const [modalIsOpen, setModalOpen] = useState(false)
-  const [walletAddress, setWalletAddress] = useState<string | undefined>(
-    undefined
-  )
-  const [walletError, setWalletError] = useState<string | undefined>(undefined)
+  // Data
+  const { mintPrice, isLoading } = useMintPrice()
 
   const cn = `${styles.container} ${constStyles.typo} ${
     constStyles['theme__' + systemTheme] || constStyles.theme__light
@@ -52,17 +51,7 @@ const Home: NextPage = () => {
       />
 
       <main className={styles.main}>
-        <Header
-          walletAddress={walletAddress}
-          walletError={walletError}
-          onConnectWallet={() => {
-            if (walletAddress) {
-              setWalletError('wrong network')
-            } else {
-              setWalletAddress('0x83...f7ae')
-            }
-          }}
-        />
+        <Header onConnectWallet={() => {}} />
         <Moon />
         <div className={styles.contentWrapper}>
           <MainSection
@@ -79,7 +68,7 @@ const Home: NextPage = () => {
                   </Paragraph>
                   <div className={styles.mintButtonWrapper}>
                     <MintButton
-                      title="Mint for 0.02 eth"
+                      title={`Mint for ${isLoading ? '...' : mintPrice} eth`}
                       onRelease={() => setModalOpen(true)}
                       wide
                     />
