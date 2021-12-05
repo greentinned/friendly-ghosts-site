@@ -9,9 +9,12 @@ import helperStyles from '../../styles/helpers.module.css'
 import styles from './Home.module.css'
 import ghostClouds from './img/ghost_clouds.svg'
 import moonClouds from './img/moon_clouds.svg'
+import halfMoonClouds from './img/half_moon_clouds.svg'
 import ghost1 from './img/ghost_1.svg'
 import ghost2 from './img/ghost_2.svg'
 import ghost3 from './img/ghost_3.svg'
+import discordIcon from '../../components/social_button/img/discord.svg'
+import twitterIcon from '../../components/social_button/img/twitter.svg'
 import {
   Header,
   MintButton,
@@ -24,6 +27,7 @@ import {
   Caption,
   Image,
   Visibility,
+  SocialButton,
 } from '../../components'
 import { visibility } from '../../components/visibility'
 
@@ -98,6 +102,7 @@ const Home: NextPage = () => {
           />
           <DetailSection />
           <TraitsSection />
+          <SocialSection />
         </div>
       </main>
       <Footer />
@@ -106,11 +111,12 @@ const Home: NextPage = () => {
 }
 
 const Moon = () => {
+  const systemTheme = useSystemTheme(true)
   return (
     <div className={styles.moonClouds}>
       <div className={styles.moonCloudsImage}>
         <Image
-          src={moonClouds}
+          src={systemTheme === 'light' ? moonClouds : halfMoonClouds}
           alt="Misty moon in the clouds"
           width={666}
           height={276}
@@ -235,5 +241,77 @@ const TraitsSectionItem: FC<{ title: string; src: string; reverse?: boolean }> =
       </div>
     )
   }
+
+/*
+ * Social Section
+ */
+const SocialSection: FC = () => {
+  return (
+    <div className={styles.socialSection}>
+      <Heading1>If you ghost, you’re with us ♥︎</Heading1>
+      <div className={styles.socialSectionItems}>
+        <SocialSectionItem
+          // icon={<SocialButton type="discord" url="https://twitter.com" />}
+          // icon={
+          //   <Image
+          //     src={discordIcon}
+          //     alt="discord"
+          //     className={styles.socialSectionItemIcon}
+          //   />
+          // }
+          icon="discord"
+          title="1000 supportive fantoms in friendly discord"
+          linkText="to server ➚"
+          linkUrl="https://twitter.com"
+        />
+        <SocialSectionItem
+          // icon={<SocialButton type="discord" url="https://twitter.com" />}
+          // icon={
+          //   <Image
+          //     src={twitterIcon}
+          //     alt="twitter"
+          //     className={styles.socialSectionItemIcon}
+          //   />
+          // }
+          icon="twitter"
+          title="1000 supportive fantoms in friendly discord"
+          linkText="to server ➚"
+          linkUrl="https://twitter.com"
+        />
+      </div>
+    </div>
+  )
+}
+
+const SocialSectionItem: FC<{
+  icon: 'discord' | 'twitter'
+  title: string
+  linkText: string
+  linkUrl: string
+}> = ({ icon, title, linkText, linkUrl }) => {
+  return (
+    <div className={styles.socialSectionItem}>
+      {/* <div className={styles.socialSectionItemIcon}>{icon}</div> */}
+      <div
+        className={`${styles.socialSectionItemIcon} ${
+          styles[`socialSectionItemIcon__${icon}`]
+        }`}
+      ></div>
+      <div className={styles.socialSectionItemContent}>
+        <Paragraph styles={[styles.socialSectionItemText]}>{title}</Paragraph>
+        <a href={linkUrl} target="_blank" rel="noreferrer">
+          <Paragraph
+            styles={[
+              styles.socialSectionItemText,
+              styles.socialSectionItemLink,
+            ]}
+          >
+            {linkText}
+          </Paragraph>
+        </a>
+      </div>
+    </div>
+  )
+}
 
 export default Home
