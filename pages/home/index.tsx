@@ -29,9 +29,10 @@ import {
   Caption,
   Image,
   Visibility,
-  SocialButton,
 } from '../../components'
 import { visibility } from '../../components/visibility'
+import honorData from './data'
+import { randArb } from '../../helpers'
 
 Modal.setAppElement('#__next')
 
@@ -371,7 +372,7 @@ const TeamSectionPerson: FC<{
 }
 
 /*
- * Team Section
+ * Honoraries Section
  */
 
 const HonorariesSection: FC = () => {
@@ -381,7 +382,43 @@ const HonorariesSection: FC = () => {
         <Heading1>Honoraries</Heading1>
         <Paragraph>All this great people with us</Paragraph>
       </div>
-      <div></div>
+      <div className={styles.honorariesSectionPersons}>
+        {honorData.map((i, idx) => (
+          <HonorariesSectionPerson
+            key={`${i.twitter}_${idx}`}
+            src={i.src}
+            twitter={i.twitter}
+            twitterUrl={i.twitterUrl}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const HonorariesSectionPerson: FC<{
+  src: StaticImageData
+  twitter: string
+  twitterUrl: string
+}> = ({ src, twitter, twitterUrl }) => {
+  return (
+    <div
+      className={styles.honorariesSectionPerson}
+      style={{ transform: `rotateZ(${Math.floor(randArb(-3, 3))}deg)` }}
+    >
+      <Image
+        src={src}
+        alt={twitter}
+        className={styles.honorariesSectionImage}
+      />
+      <a
+        href={twitterUrl}
+        target="_blank"
+        rel="noreferrer"
+        className={styles.honorariesSectionTwitter}
+      >
+        <Caption>@{twitter}</Caption>
+      </a>
     </div>
   )
 }

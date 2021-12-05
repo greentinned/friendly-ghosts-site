@@ -421,11 +421,13 @@
 
 .honorariesSection {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   margin-top: 72px;
   max-width: 1128px;
   padding: 0 80px;
+  width: 100%;
 }
 .honorariesSectionHeader {
   display: flex;
@@ -437,14 +439,50 @@
   margin-top: 16px;
 }
 .honorariesSectionPersons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  margin-left: -16px;
 }
-
+.honorariesSectionPerson {
+  display: flex;
+  flex-direction: column;
+  max-width: 220px;
+  min-width: 220px;
+  padding: 10px;
+  padding-bottom: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 16px;
+  margin-left: 16px;
+}
+.honorariesSectionImage {
+  border-radius: 6px;
+}
+.honorariesSectionTwitter {
+  padding: 16px 0;
+}
+.honorariesSectionTwitter > * {
+  color: #082e5b !important;
+}
 @media (max-width: 640px) {
   .honorariesSection {
     padding: 0 16px;
   }
   .honorariesSectionHeader > * + * {
     margin-top: 8px;
+  }
+  .honorariesSectionPersons {
+    margin-top: 24px;
+  }
+  .honorariesSectionPerson {
+    display: flex;
+    max-width: 140px;
+    min-width: 140px;
+    padding: 8px;
+  }
+  .honorariesSectionTwitter {
+    padding: 8px 0;
   }
 }
 
