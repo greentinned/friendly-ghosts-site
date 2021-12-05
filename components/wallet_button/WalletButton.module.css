@@ -1,0 +1,16 @@
+.wallet {
+}
+
+.wallet__error {
+  color: #650d0d;
+  background-color: #f78a8a;
+  border: 2px solid #e05e5e;
+}
+
+.wallet__error:hover {
+  background-color: #f78a8a;
+}
+
+.wallet__error:active {
+  background-color: #f78a8a;
+}
