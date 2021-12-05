@@ -307,7 +307,7 @@
   mask-image: url(./img/discord.svg);
 }
 .socialSectionItemIcon__twitter {
-  mask-image: url(./img/discord.svg);
+  mask-image: url(./img/twitter.svg);
 }
 @media (max-width: 640px) {
   .socialSection {
@@ -341,6 +341,110 @@
     max-width: 68px !important;
     max-height: 68px !important;
     mask-size: 68px;
+  }
+}
+
+/* TeamSection */
+
+.teamSection {
+  display: flex;
+  margin-top: 156px;
+  max-width: 1128px;
+  padding: 0 80px;
+}
+.teamSectionHeader {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* width: 50%; */
+}
+.teamSectionHeader > * + * {
+  margin-top: 32px;
+}
+.teamSectionPersons {
+  display: flex;
+  flex-grow: 1;
+  /* width: 50%; */
+  margin-left: 48px;
+}
+.teamSectionPersons > * + * {
+  margin-left: 80px;
+}
+.teamSectionPersonsCol {
+  display: flex;
+  flex-direction: column;
+}
+.teamSectionPersonsCol > * + * {
+  margin-top: 64px;
+}
+.teamSectionPersonsCol:nth-child(2) {
+  padding-top: 80px;
+}
+.teamSectionPerson {
+  max-width: 220px;
+}
+.teamSectionPerson > * + * {
+  margin-top: 16px;
+}
+.teamSectionPersonId {
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 640px) {
+  .teamSection {
+    flex-direction: column;
+    margin-top: 72px;
+    padding: 0 16px;
+  }
+  .teamSectionHeader {
+    width: 100%;
+  }
+  .teamSectionPersons {
+    margin-left: 0;
+    width: 100%;
+  }
+  .teamSectionPersons > * + * {
+    margin-left: 24px;
+  }
+  .teamSectionPersonsCol {
+    padding-top: 40px;
+  }
+  .teamSectionPersonsCol > * + * {
+    margin-top: 32px;
+  }
+  .teamSectionPerson > * + * {
+    margin-top: 8px;
+  }
+}
+
+/* Honoraries */
+
+.honorariesSection {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 72px;
+  max-width: 1128px;
+  padding: 0 80px;
+}
+.honorariesSectionHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.honorariesSectionHeader > * + * {
+  margin-top: 16px;
+}
+.honorariesSectionPersons {
+}
+
+@media (max-width: 640px) {
+  .honorariesSection {
+    padding: 0 16px;
+  }
+  .honorariesSectionHeader > * + * {
+    margin-top: 8px;
   }
 }
 

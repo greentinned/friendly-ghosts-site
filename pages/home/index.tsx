@@ -13,8 +13,10 @@ import halfMoonClouds from './img/half_moon_clouds.svg'
 import ghost1 from './img/ghost_1.svg'
 import ghost2 from './img/ghost_2.svg'
 import ghost3 from './img/ghost_3.svg'
-import discordIcon from '../../components/social_button/img/discord.svg'
-import twitterIcon from '../../components/social_button/img/twitter.svg'
+import sasha from './img/sasha.svg'
+import cute from './img/cute.svg'
+import egor from './img/egor.svg'
+import nxcss from './img/nxcss.svg'
 import {
   Header,
   MintButton,
@@ -103,6 +105,8 @@ const Home: NextPage = () => {
           <DetailSection />
           <TraitsSection />
           <SocialSection />
+          <TeamSection />
+          <HonorariesSection />
         </div>
       </main>
       <Footer />
@@ -245,34 +249,19 @@ const TraitsSectionItem: FC<{ title: string; src: string; reverse?: boolean }> =
 /*
  * Social Section
  */
+
 const SocialSection: FC = () => {
   return (
     <div className={styles.socialSection}>
       <Heading1>If you ghost, you’re with us ♥︎</Heading1>
       <div className={styles.socialSectionItems}>
         <SocialSectionItem
-          // icon={<SocialButton type="discord" url="https://twitter.com" />}
-          // icon={
-          //   <Image
-          //     src={discordIcon}
-          //     alt="discord"
-          //     className={styles.socialSectionItemIcon}
-          //   />
-          // }
           icon="discord"
           title="1000 supportive fantoms in friendly discord"
           linkText="to server ➚"
           linkUrl="https://twitter.com"
         />
         <SocialSectionItem
-          // icon={<SocialButton type="discord" url="https://twitter.com" />}
-          // icon={
-          //   <Image
-          //     src={twitterIcon}
-          //     alt="twitter"
-          //     className={styles.socialSectionItemIcon}
-          //   />
-          // }
           icon="twitter"
           title="1000 supportive fantoms in friendly discord"
           linkText="to server ➚"
@@ -291,7 +280,6 @@ const SocialSectionItem: FC<{
 }> = ({ icon, title, linkText, linkUrl }) => {
   return (
     <div className={styles.socialSectionItem}>
-      {/* <div className={styles.socialSectionItemIcon}>{icon}</div> */}
       <div
         className={`${styles.socialSectionItemIcon} ${
           styles[`socialSectionItemIcon__${icon}`]
@@ -310,6 +298,90 @@ const SocialSectionItem: FC<{
           </Paragraph>
         </a>
       </div>
+    </div>
+  )
+}
+
+/*
+ * Team Section
+ */
+
+const TeamSection: FC = () => {
+  return (
+    <div className={styles.teamSection}>
+      <div className={styles.teamSectionHeader}>
+        <Heading1>People behind the project</Heading1>
+        <Paragraph>
+          created by 4 enthusiasts to test our skills and take our community
+          onchain
+        </Paragraph>
+      </div>
+      <div className={styles.teamSectionPersons}>
+        <div className={styles.teamSectionPersonsCol}>
+          <TeamSectionPerson
+            src={sasha}
+            name="Sasha"
+            twitter="sashatsereteli"
+            twitterUrl="https://twitter.com/sashatsereteli"
+          />
+          <TeamSectionPerson
+            src={egor}
+            name="Egor"
+            twitter="rqrqrqrq"
+            twitterUrl="https://github.com/rqrqrqrq"
+          />
+        </div>
+        <div className={styles.teamSectionPersonsCol}>
+          <TeamSectionPerson
+            src={cute}
+            name="Cute"
+            twitter="armslookcute"
+            twitterUrl="https://twitter.com/armslookcute"
+          />
+          <TeamSectionPerson
+            src={nxcss}
+            name="NXCSS"
+            twitter="nxcss"
+            twitterUrl="https://www.instagram.com/nxcss"
+          />
+        </div>
+        <div className={styles.teamSectionPersonsCol}></div>
+      </div>
+    </div>
+  )
+}
+
+const TeamSectionPerson: FC<{
+  src: string
+  name: string
+  twitter: string
+  twitterUrl: string
+}> = ({ src, name, twitter, twitterUrl }) => {
+  return (
+    <div className={styles.teamSectionPerson}>
+      <Image src={src} alt={name} />
+      <div className={styles.teamSectionPersonId}>
+        <Heading3>{name}</Heading3>
+        <a href={twitterUrl} target="_blank" rel="noreferrer">
+          <Caption>@{twitter}</Caption>
+        </a>
+      </div>
+    </div>
+  )
+}
+
+/*
+ * Team Section
+ */
+
+const HonorariesSection: FC = () => {
+  return (
+    <div className={styles.honorariesSection}>
+      <div className={styles.honorariesSectionHeader}>
+        <Heading1>Honoraries</Heading1>
+        <Paragraph>All this great people with us</Paragraph>
+      </div>
+      <div></div>
     </div>
   )
 }
