@@ -17,8 +17,14 @@ const Header = (props: HeaderProps) => {
       <div className={styles.lead}>
         <Logo />
         <div className={styles.social}>
-          <SocialButton type="twitter" url="https://twitter.com" />
-          <SocialButton type="discord" url="https://discord.com" />
+          <SocialButton
+            type="twitter"
+            url="https://twitter.com/FriendlyFantoms"
+          />
+          <SocialButton
+            type="discord"
+            url="https://discord.com/invite/gBNW4NwDMK"
+          />
         </div>
       </div>
       <div className={styles.trail}>
