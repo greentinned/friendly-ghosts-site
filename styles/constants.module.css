@@ -34,10 +34,14 @@
     --typo-p-height: 110%;
     --typo-c-size: 16px;
     --typo-c-height: 110%;
-    --typo-button-title-size: 16px;
+    --typo-button-title-size: 20px;
+    --typo-button-title-height: 110%;
+    --typo-button-subtitle-size: 16px;
+    --typo-button-subtitle-height: 110%;
+    /* --typo-button-title-size: 16px;
     --typo-button-title-height: 110%;
     --typo-button-subtitle-size: 10px;
-    --typo-button-subtitle-height: 110%;
+    --typo-button-subtitle-height: 110%; */
   }
 }
 

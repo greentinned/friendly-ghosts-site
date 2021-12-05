@@ -9,15 +9,6 @@ const Footer = () => {
       <div className={styles.content}>
         <div className={styles.lettering} />
       </div>
-      {/* <div className={styles.content}>
-        <div className={styles.contentInner}>
-          <Image
-            src={letteringSrc}
-            alt="Even Ghosts Deserve Love"
-            layout="fill"
-          />
-        </div>
-      </div> */}
       <Paragraph styles={[styles.copy]}>
         <span className={styles.year}>2021</span> friendly ghosts
       </Paragraph>

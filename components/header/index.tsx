@@ -26,6 +26,7 @@ const Header = (props: HeaderProps) => {
           address={walletAddress}
           error={walletError}
           onRelease={onConnectWallet}
+          disabled
         />
       </div>
     </div>
