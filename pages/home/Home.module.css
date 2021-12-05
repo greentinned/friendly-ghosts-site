@@ -5,7 +5,7 @@
 /* Elems */
 
 .main {
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 .contentWrapper {
@@ -13,7 +13,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 56px;
   padding-top: 120px;
+}
+@media (max-width: 640px) {
+  .contentWrapper {
+    padding: 0 16px;
+    padding-top: 120px;
+  }
 }
 
 .title {
