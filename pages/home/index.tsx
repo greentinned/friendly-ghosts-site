@@ -31,7 +31,6 @@ import {
   Visibility,
 } from '../../components'
 import { visibility } from '../../components/visibility'
-import { honorData } from '../../data'
 import { randArb } from '../../helpers'
 
 Modal.setAppElement('#__next')
@@ -85,6 +84,7 @@ const Home: NextPage = () => {
                       // title={`Mint for ${isLoading ? '...' : mintPrice} eth`}
                       title="Mint coming soon"
                       onRelease={() => {}}
+                      main
                     />
                     <Caption styles={[helperStyles.mobileHidden]}>
                       Become <br /> a friendly ghost
@@ -167,7 +167,7 @@ const DetailSection: FC = () => {
         <div className={styles.detailSectionItems}>
           <DetailSectionItem
             title="8888 ghosts"
-            subtitle="Unique characters crafter with love ♥︎"
+            subtitle="Unique characters crafted with love ♥︎"
           />
           <DetailSectionItem
             title="200+ unique traits"
@@ -206,15 +206,10 @@ const DetailSectionItem: FC<{ title: string; subtitle: string }> = ({
 const TraitsSection: FC = () => {
   return (
     <div className={styles.traitsSection}>
-      <TraitsSectionItem
-        title="you can be in a cute hat..."
-        // src="/img/home/ghost_1.svg"
-        src={ghost1}
-      />
+      <TraitsSectionItem title="you can be in a cute hat..." src={ghost1} />
       <Visibility desktop>
         <TraitsSectionItem
           title="... cool glasses and a suit..."
-          // src="/img/home/ghost_2.svg"
           src={ghost2}
           reverse
         />
@@ -222,15 +217,10 @@ const TraitsSection: FC = () => {
       <Visibility mobile>
         <TraitsSectionItem
           title="... cool glasses and a suit..."
-          // src="/img/home/ghost_2.svg"
           src={ghost2}
         />
       </Visibility>
-      <TraitsSectionItem
-        title="... or not so ghostly at all"
-        // src="/img/home/ghost_3.svg"
-        src={ghost3}
-      />
+      <TraitsSectionItem title="... or not so ghostly at all" src={ghost3} />
     </div>
   )
 }
@@ -314,8 +304,8 @@ const TeamSection: FC = () => {
       <div className={styles.teamSectionHeader}>
         <Heading1>People behind the project</Heading1>
         <Paragraph>
-          created by 4 enthusiasts to test our skills and take our community
-          onchain
+          created by 4 enthusiasts to test our skills and
+          take our community onchain
         </Paragraph>
       </div>
       <div className={styles.teamSectionPersons}>
