@@ -34,3 +34,9 @@
   font-size: var(--typo-button-subtitle-size);
   line-height: var(--typo-button-subtitle-height);
 }
+
+/* Mods */
+
+.wide {
+  padding: 0 80px;
+}
