@@ -3,14 +3,14 @@ import styles from './SocialButton.module.css'
 import twitterSrc from './img/twitter.svg'
 import discordSrc from './img/discord.svg'
 
-export enum SocialButtonType {
-  twitter = 'twitter',
-  discord = 'discord',
-}
+// export enum SocialButtonType {
+//   twitter = 'twitter',
+//   discord = 'discord',
+// }
 
 export interface SocialButtonProps {
   url: string
-  type: SocialButtonType
+  type: 'discord' | 'twitter'
 }
 
 const SocialButton = (props: SocialButtonProps) => {

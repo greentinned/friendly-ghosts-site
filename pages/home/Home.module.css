@@ -13,31 +13,118 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 56px;
-  padding-top: 120px;
+  /* padding: 0 56px; */
+  /* padding-top: 120px; */
+  padding-top: 256px;
 }
 @media (max-width: 640px) {
   .contentWrapper {
     padding: 0 16px;
-    padding-top: 120px;
+    padding-top: 132px;
   }
 }
 
-.title {
-  font-size: var(--typo-header-size);
-  line-height: var(--typo-header-height);
-  color: var(--theme-main-text);
+.mainSection {
+  display: flex;
+  width: 100%;
+}
+/* .mainSectionLead {
+  display: flex;
+  flex-grow: 1;
+  width: 25%;
+} */
+.mainSectionCenter {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin-left: auto;
+}
+.mainSectionCenterWrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 650px;
+}
+.mainSectionTrail {
+  display: flex;
+  position: relative;
+  /* flex-grow: 1; */
+  width: 25%;
+  overflow: hidden;
+}
+@media (max-width: 640px) {
+  .mainSection {
+    flex-direction: column;
+  }
+  .mainSectionLead {
+    display: none;
+  }
+  .mainSectionCenter {
+    width: auto;
+  }
+  .mainSectionTrail {
+    width: auto;
+  }
+}
+
+.ghostClouds {
+  position: absolute;
+  right: -80px;
+  bottom: -14px;
+  padding-top: 24px;
+}
+@media (max-width: 640px) {
+  .ghostClouds {
+    position: relative;
+    right: initial;
+    bottom: initial;
+  }
+}
+
+.mintWrapper {
+  display: flex;
+  flex-direction: column;
+  padding-top: 54px;
+}
+.mintButtonWrapper {
+  display: flex;
+}
+.mintButtonWrapper > * {
+  margin-right: 24px;
+}
+@media (max-width: 640px) {
+  .mintWrapper {
+    display: flex;
+    flex-direction: column;
+    padding-top: 32px;
+    width: 100%;
+  }
+  .mintWrapper > * {
+    margin-bottom: 16px;
+  }
+  .mintButtonWrapper {
+    flex-direction: column;
+  }
+  .mintButtonWrapper > * {
+    margin-right: 0;
+  }
+}
+
+.titleLineLead {
+  margin-left: -10%;
+}
+.titleLineTrail {
+  margin-right: -10%;
+}
+@media (max-width: 640px) {
+  .titleLineLead {
+    margin-left: 0;
+  }
+  .titleLineTrail {
+    margin-right: 0;
+  }
 }
 
 .description {
-  font-size: var(--typo-body-size);
-  line-height: var(--typo-body-height);
-  color: var(--theme-main-text);
-}
-
-.footer {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+  padding-top: 24px;
 }

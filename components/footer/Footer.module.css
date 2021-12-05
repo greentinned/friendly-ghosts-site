@@ -8,9 +8,6 @@
 
 .copy {
   padding: 96px 48px;
-  color: var(--theme-main-text);
-  font-size: var(--typo-p-size);
-  line-height: var(--typo-p-height);
 }
 
 .year {

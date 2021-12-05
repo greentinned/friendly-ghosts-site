@@ -1,7 +1,7 @@
 import styles from './Header.module.css'
 import WalletButton from '../wallet_button'
 import Logo from '../logo'
-import SocialButton, { SocialButtonType } from '../social_button'
+import SocialButton from '../social_button'
 
 export interface HeaderProps {
   walletAddress?: string
@@ -17,14 +17,8 @@ const Header = (props: HeaderProps) => {
       <div className={styles.lead}>
         <Logo />
         <div className={styles.social}>
-          <SocialButton
-            type={SocialButtonType.twitter}
-            url="https://twitter.com"
-          />
-          <SocialButton
-            type={SocialButtonType.discord}
-            url="https://discord.com"
-          />
+          <SocialButton type="twitter" url="https://twitter.com" />
+          <SocialButton type="discord" url="https://discord.com" />
         </div>
       </div>
       <div className={styles.trail}>
