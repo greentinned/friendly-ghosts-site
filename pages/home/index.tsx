@@ -287,13 +287,13 @@ const TraitsSectionItem: FC<{ title: string; src: string; reverse?: boolean }> =
 const SocialSection: FC = () => {
   return (
     <div className={styles.socialSection}>
-      <Heading1>If you’re ghost, you’re with us ♥︎</Heading1>
+      <Heading1>If you’re a ghost, you’re with us ♥︎</Heading1>
       <div className={styles.socialSectionItems}>
         <SocialSectionItem
           icon="discord"
-          title="thousands supportive ghosts in our friendly discord"
+          title="thousands of supportive ghosts in our friendly discord"
           linkText="join us ➚"
-          linkUrl="https://discord.gg/gBNW4NwDMK"
+          linkUrl="https://discord.com/invite/gBNW4NwDMK"
         />
         <SocialSectionItem
           icon="twitter"
