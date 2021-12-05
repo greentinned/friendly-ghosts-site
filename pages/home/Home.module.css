@@ -21,11 +21,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 256px;
+  padding-top: 24px;
 }
 @media (max-width: 640px) {
   .contentWrapper {
-    padding-top: 180px;
+    padding-top: 0;
   }
 }
 
@@ -73,13 +73,13 @@
   justify-content: center;
 }
 .moonCloudsImage {
-  position: absolute;
-  top: -80px;
 }
 @media (max-width: 640px) {
   .moonCloudsImage {
-    position: absolute;
-    top: 0px;
+    /* position: absolute;
+    top: 0px; */
+    margin-top: 88px;
+    transform: scale(0.8);
   }
 }
 
@@ -211,7 +211,7 @@
     margin-top: 24px;
   }
   .detailSectionGhostsWrapper {
-    margin-top: 32px;
+    margin-top: 16px;
     margin-bottom: 32px;
     height: 332px;
   }
