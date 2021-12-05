@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ghost {
+}
+
+.text {
+  padding-left: 16px !important;
+}
+@media (max-width: 640px) {
+  .text {
+    display: none !important;
+  }
+}
