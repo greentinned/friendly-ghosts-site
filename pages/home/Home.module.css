@@ -1,0 +1,36 @@
+.container {
+  background-color: var(--theme-main-background);
+}
+
+/* Elems */
+
+.main {
+  min-height: 100vh;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 120px;
+}
+
+.title {
+  font-size: var(--typo-header-size);
+  line-height: var(--typo-header-height);
+  color: var(--theme-main-text);
+}
+
+.description {
+  font-size: var(--typo-body-size);
+  line-height: var(--typo-body-height);
+  color: var(--theme-main-text);
+}
+
+.footer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}

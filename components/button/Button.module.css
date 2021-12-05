@@ -1,4 +1,4 @@
-.default {
+.main {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,27 +6,29 @@
   box-sizing: border-box;
   height: 64px;
   padding: 0 20px;
-  color: #fff;
+  color: var(--theme-main-text);
   border: 2px solid #ffffff;
   border-radius: 24px;
   cursor: pointer;
   user-select: none;
 }
 
-.default_title {
+.main:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.main:active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Elems */
+
+.title {
   font-size: var(--typo-button-title-size);
   line-height: var(--typo-button-title-height);
 }
 
-.default_subtitle {
+.subtitle {
   font-size: var(--typo-button-subtitle-size);
   line-height: var(--typo-button-subtitle-height);
-}
-
-.default:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.default:active {
-  background-color: rgba(255, 255, 255, 0.5);
 }

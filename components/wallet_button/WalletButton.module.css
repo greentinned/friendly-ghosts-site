@@ -1,16 +1,19 @@
-.wallet {
+.main {
 }
 
-.wallet__error {
-  color: #650d0d;
-  background-color: #f78a8a;
-  border: 2px solid #e05e5e;
+/* Mods */
+/* TODO: Пофиксить !important в стилях */
+
+.main__error {
+  color: #650d0d !important;
+  background-color: #f78a8a !important;
+  border: 2px solid #e05e5e !important;
 }
 
-.wallet__error:hover {
-  background-color: #f78a8a;
+.main__error:hover {
+  background-color: #f78a8a !important;
 }
 
-.wallet__error:active {
-  background-color: #f78a8a;
+.main__error:active {
+  background-color: #f78a8a !important;
 }

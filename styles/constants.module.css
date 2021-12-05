@@ -1,0 +1,36 @@
+/* Common */
+
+/* Typography */
+
+.typo {
+  --typo-header-size: 114px;
+  --typo-header-height: 114px;
+  --typo-body-size: 32px;
+  --typo-body-height: 40px;
+  /* Эти размеры сохраняются для мобильных девайсов */
+  --typo-button-title-size: 24px;
+  --typo-button-title-height: 26px;
+  --typo-button-subtitle-size: 16px;
+  --typo-button-subtitle-height: 19px;
+}
+@media (max-width: 640px) {
+  .typo {
+    --typo-header-size: 48px;
+    --typo-header-height: 48px;
+    --typo-body-size: 24px;
+    --typo-body-height: 32px;
+  }
+}
+
+/* Color Theme */
+
+.theme__light {
+  --theme-main-background-rgb-vals: 18, 59, 107;
+  --theme-main-background: rgba(var(--theme-main-background-rgb-vals));
+  --theme-main-text: #fff;
+}
+
+/* .theme__dark {
+  --theme-main-background: #000;
+  --theme-main-text: #fff;
+} */
