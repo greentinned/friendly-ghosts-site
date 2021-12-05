@@ -20,7 +20,7 @@
 @media (max-width: 640px) {
   .contentWrapper {
     /* padding: 0 16px; */
-    padding-top: 156px;
+    padding-top: 180px;
   }
 }
 
@@ -80,7 +80,7 @@
 @media (max-width: 640px) {
   .moonCloudsImage {
     position: absolute;
-    top: -32px;
+    top: 0px;
   }
 }
 
