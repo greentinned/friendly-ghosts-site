@@ -46,16 +46,16 @@
 .theme__light {
   --theme-main-background-rgb-vals: 18, 59, 107;
   --theme-main-background: rgba(var(--theme-main-background-rgb-vals));
-  --theme-minor-background: #fff;
+  --theme-minor-background: #e1f1f2;
   --theme-main-text: #fff;
   --theme-main-text-invert: #002636;
 }
 
-.theme__dark {
+/* .theme__dark {
   --theme-main-background-rgb-vals: 0, 0, 0;
   --theme-main-background: rgba(var(--theme-main-background-rgb-vals));
   --theme-minor-background-rgb-vals: 18, 59, 107;
   --theme-minor-background: rgba(var(--theme-minor-background-rgb-vals));
   --theme-main-text: #fff;
   --theme-main-text-invert: #002636;
-}
+} */
