@@ -256,13 +256,13 @@ const SocialSection: FC = () => {
           icon="discord"
           title="thousands supportive ghosts in our friendly discord"
           linkText="join us ➚"
-          linkUrl="https://twitter.com"
+          linkUrl="https://discord.gg/gBNW4NwDMK"
         />
         <SocialSectionItem
           icon="twitter"
           title="all things ghostly and cool drops"
           linkText="follow us ➚"
-          linkUrl="https://twitter.com"
+          linkUrl="https://twitter.com/FriendlyFantoms"
         />
       </div>
     </div>
