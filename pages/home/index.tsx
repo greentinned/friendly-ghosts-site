@@ -355,15 +355,15 @@ const TeamSectionPerson: FC<{
   twitterUrl: string
 }> = ({ src, name, twitter, twitterUrl }) => {
   return (
-    <div className={styles.teamSectionPerson}>
-      <Image src={src} alt={name} />
-      <div className={styles.teamSectionPersonId}>
-        <Heading3>{name}</Heading3>
-        <a href={twitterUrl} target="_blank" rel="noreferrer">
+    <a href={twitterUrl} target="_blank" rel="noreferrer">
+      <div className={styles.teamSectionPerson}>
+        <Image src={src} alt={name} />
+        <div className={styles.teamSectionPersonId}>
+          <Heading3>{name}</Heading3>
           <Caption>@{twitter}</Caption>
-        </a>
+        </div>
       </div>
-    </div>
+    </a>
   )
 }
 

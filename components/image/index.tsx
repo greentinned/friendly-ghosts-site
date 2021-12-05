@@ -1,7 +1,6 @@
 import NextImage, { ImageProps, ImageLoaderProps } from 'next/image'
 
-const basePath =
-  process.env.NODE_ENV === 'production' ? 'https://greentinned.github.io' : './'
+const basePath = process.env.NODE_ENV === 'production' ? process.env.HOST : './'
 
 const loader = (props: ImageLoaderProps) => {
   const { src, width, quality } = props
