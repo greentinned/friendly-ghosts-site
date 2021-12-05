@@ -19,8 +19,8 @@
 }
 @media (max-width: 640px) {
   .contentWrapper {
-    padding: 0 16px;
-    padding-top: 132px;
+    /* padding: 0 16px; */
+    padding-top: 156px;
   }
 }
 
@@ -55,6 +55,7 @@
 @media (max-width: 640px) {
   .mainSection {
     flex-direction: column;
+    padding: 0 16px;
   }
   .mainSectionLead {
     display: none;
@@ -64,6 +65,22 @@
   }
   .mainSectionTrail {
     width: auto;
+  }
+}
+
+.moonClouds {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.moonCloudsImage {
+  position: absolute;
+  top: -80px;
+}
+@media (max-width: 640px) {
+  .moonCloudsImage {
+    position: absolute;
+    top: -32px;
   }
 }
 
@@ -92,6 +109,9 @@
 .mintButtonWrapper > * {
   margin-right: 24px;
 }
+.mintButton {
+  min-width: 220px;
+}
 @media (max-width: 640px) {
   .mintWrapper {
     display: flex;
@@ -107,6 +127,22 @@
   }
   .mintButtonWrapper > * {
     margin-right: 0;
+  }
+}
+
+.detailSection {
+  display: flex;
+  background-color: var(--theme-minor-background);
+  width: 100%;
+  height: 640px;
+  border-radius: 80px;
+  margin-top: 180px;
+}
+@media (max-width: 640px) {
+  .detailSection {
+    border-radius: 40px;
+    margin-top: -32px;
+    z-index: 1000;
   }
 }
 

@@ -8,6 +8,7 @@ import constStyles from '../../styles/constants.module.css'
 import helperStyles from '../../styles/helpers.module.css'
 import styles from './Home.module.css'
 import ghostClouds from './img/ghost_clouds.svg'
+import moonClouds from './img/moon_clouds.svg'
 import {
   Header,
   MintButton,
@@ -62,6 +63,7 @@ const Home: NextPage = () => {
             }
           }}
         />
+        <Moon />
         <div className={styles.contentWrapper}>
           <MainSection
             center={
@@ -77,8 +79,10 @@ const Home: NextPage = () => {
                   </Paragraph>
                   <div className={styles.mintButtonWrapper}>
                     <MintButton
-                      title="Mint for 0.02 eth"
+                      title="Mint"
+                      subtitle="0.02 eth"
                       onRelease={() => setModalOpen(true)}
+                      wide
                     />
                     <Caption styles={[helperStyles.mobileHidden]}>
                       Became <br /> a friendly ghost
@@ -93,9 +97,20 @@ const Home: NextPage = () => {
               </div>
             }
           />
+          <DetailSection />
         </div>
       </main>
       <Footer />
+    </div>
+  )
+}
+
+const Moon = () => {
+  return (
+    <div className={styles.moonClouds}>
+      <div className={styles.moonCloudsImage}>
+        <Image src={moonClouds} alt="Misty moon in the clouds" />
+      </div>
     </div>
   )
 }
@@ -114,6 +129,10 @@ const MainSection: FC<{
       <div className={styles.mainSectionTrail}>{props.trail}</div>
     </div>
   )
+}
+
+const DetailSection: FC = () => {
+  return <div className={styles.detailSection}>{}</div>
 }
 
 export default Home
