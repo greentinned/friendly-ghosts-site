@@ -455,6 +455,13 @@
   border-radius: 8px;
   margin-top: 16px;
   margin-left: 16px;
+  /* transition: all 300ms ease-in-out; */
+}
+.honorariesSectionPersonWrapper {
+  transition: all 150ms ease-out;
+}
+.honorariesSectionPersonWrapper:hover {
+  transform: scale(1.05);
 }
 .honorariesSectionImage {
   border-radius: 6px;

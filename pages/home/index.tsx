@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import useSystemTheme from 'use-system-theme'
-import { useMintPrice } from '../../hooks'
+import { useHonoraries, useMintPrice } from '../../hooks'
 import constStyles from '../../styles/constants.module.css'
 import helperStyles from '../../styles/helpers.module.css'
 import styles from './Home.module.css'
@@ -31,7 +31,7 @@ import {
   Visibility,
 } from '../../components'
 import { visibility } from '../../components/visibility'
-import honorData from './data'
+import { honorData } from '../../data'
 import { randArb } from '../../helpers'
 
 Modal.setAppElement('#__next')
@@ -376,6 +376,7 @@ const TeamSectionPerson: FC<{
  */
 
 const HonorariesSection: FC = () => {
+  const { data, isLoading } = useHonoraries()
   return (
     <div className={styles.honorariesSection}>
       <div className={styles.honorariesSectionHeader}>
@@ -383,14 +384,24 @@ const HonorariesSection: FC = () => {
         <Paragraph>All this great people with us</Paragraph>
       </div>
       <div className={styles.honorariesSectionPersons}>
-        {honorData.map((i, idx) => (
+        {/* {honorData.map((i, idx) => (
           <HonorariesSectionPerson
             key={`${i.twitter}_${idx}`}
             src={i.src}
             twitter={i.twitter}
             twitterUrl={i.twitterUrl}
           />
-        ))}
+        ))} */}
+        {isLoading
+          ? ''
+          : data.map((i, idx) => (
+              <HonorariesSectionPerson
+                key={`${i.name}_${idx}`}
+                src={i.src}
+                twitter={i.name}
+                twitterUrl={i.twitterUrl}
+              />
+            ))}
       </div>
     </div>
   )
@@ -398,28 +409,32 @@ const HonorariesSection: FC = () => {
 
 const HonorariesSectionPerson: FC<{
   src: StaticImageData
+  // src: string
   twitter: string
   twitterUrl: string
 }> = ({ src, twitter, twitterUrl }) => {
   return (
-    <div
-      className={styles.honorariesSectionPerson}
-      style={{ transform: `rotateZ(${Math.floor(randArb(-3, 3))}deg)` }}
+    <a
+      href={twitterUrl}
+      target="_blank"
+      rel="noreferrer"
+      className={styles.honorariesSectionPersonWrapper}
     >
-      <Image
-        src={src}
-        alt={twitter}
-        className={styles.honorariesSectionImage}
-      />
-      <a
-        href={twitterUrl}
-        target="_blank"
-        rel="noreferrer"
-        className={styles.honorariesSectionTwitter}
+      <div
+        className={styles.honorariesSectionPerson}
+        style={{ transform: `rotateZ(${Math.floor(randArb(-3, 3))}deg)` }}
       >
-        <Caption>@{twitter}</Caption>
-      </a>
-    </div>
+        <Image
+          src={src}
+          alt={twitter}
+          className={styles.honorariesSectionImage}
+          // layout="fill"
+        />
+        <div className={styles.honorariesSectionTwitter}>
+          <Caption>{twitter}</Caption>
+        </div>
+      </div>
+    </a>
   )
 }
 
