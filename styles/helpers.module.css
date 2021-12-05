@@ -1,16 +1,30 @@
 /* Helpers */
 
 .mobileVisible {
-  display: none;
+  display: none !important;
 }
 @media (max-width: 640px) {
   .mobileVisible {
-    display: unset;
+    display: unset !important;
   }
 }
 
 @media (max-width: 640px) {
   .mobileHidden {
-    display: none;
+    display: none !important;
+  }
+}
+
+/* TODO: refactor */
+
+@media (min-width: 640px) {
+  .visibility.mobile {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .visibility.desktop {
+    display: none !important;
   }
 }

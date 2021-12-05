@@ -17,11 +17,11 @@ async function fetcher(type: 'mintPrice' | 'wallet'): Promise<any> {
 }
 
 export function useMintPrice(): {
-  mintPrice: number
+  price: number
   isLoading: boolean
   error?: string
 } {
   const { data, error } = useSWR('mintPrice', fetcher)
 
-  return { mintPrice: data, isLoading: !error && !data, error: error }
+  return { price: data, isLoading: !error && !data, error: error }
 }

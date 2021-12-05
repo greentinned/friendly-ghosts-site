@@ -49,7 +49,7 @@
   --theme-main-background: linear-gradient(
     180deg,
     rgb(var(--theme-main-background-rgb-top-vals)) 0%,
-    rgb(var(--theme-main-background-rgb-bottom-vals)) 100%
+    rgb(var(--theme-main-background-rgb-bottom-vals)) 20%
   );
   --theme-minor-background: #e1f1f2;
   --theme-main-text: #fff;
@@ -62,9 +62,9 @@
   --theme-main-background: linear-gradient(
     180deg,
     rgb(var(--theme-main-background-rgb-top-vals)) 0%,
-    rgb(var(--theme-main-background-rgb-bottom-vals)) 100%
+    rgb(var(--theme-main-background-rgb-bottom-vals)) 20%
   );
   --theme-minor-background: #698db8;
   --theme-main-text: #fff;
-  --theme-main-text-invert: #002636;
+  --theme-main-text-invert: #fff;
 }

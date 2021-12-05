@@ -27,12 +27,14 @@
   font-family: 'GT Eesti Display';
   font-size: var(--typo-button-title-size);
   line-height: var(--typo-button-title-height);
+  text-align: center;
 }
 
 .subtitle {
   font-family: 'GT Eesti Display';
   font-size: var(--typo-button-subtitle-size);
   line-height: var(--typo-button-subtitle-height);
+  text-align: center;
 }
 
 /* Mods */

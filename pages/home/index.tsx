@@ -14,19 +14,22 @@ import {
   MintButton,
   Footer,
   Hero,
+  Heading1,
+  Heading2,
+  Heading3,
   Paragraph,
   Caption,
   Image,
+  Visibility,
 } from '../../components'
+import { visibility } from '../../components/visibility'
 
 Modal.setAppElement('#__next')
 
 const Home: NextPage = () => {
   const systemTheme = useSystemTheme(true)
-
   const [modalIsOpen, setModalOpen] = useState(false)
-  // Data
-  const { mintPrice, isLoading } = useMintPrice()
+  const { price: mintPrice, isLoading } = useMintPrice()
 
   const cn = `${styles.container} ${constStyles.typo} ${
     constStyles['theme__' + systemTheme] || constStyles.theme__light
@@ -68,9 +71,9 @@ const Home: NextPage = () => {
                   </Paragraph>
                   <div className={styles.mintButtonWrapper}>
                     <MintButton
-                      title={`Mint for ${isLoading ? '...' : mintPrice} eth`}
-                      onRelease={() => setModalOpen(true)}
-                      wide
+                      // title={`Mint for ${isLoading ? '...' : mintPrice} eth`}
+                      title="Mint comming soon"
+                      onRelease={() => {}}
                     />
                     <Caption styles={[helperStyles.mobileHidden]}>
                       Became <br /> a friendly ghost
@@ -81,11 +84,17 @@ const Home: NextPage = () => {
             }
             trail={
               <div className={styles.ghostClouds}>
-                <Image src={ghostClouds} alt="Misty ghost in the clouds" />
+                <Image
+                  src="/img/home/ghost_clouds.svg"
+                  alt="Misty ghost in the clouds"
+                  width={476}
+                  height={315}
+                />
               </div>
             }
           />
           <DetailSection />
+          <TraitsSection />
         </div>
       </main>
       <Footer />
@@ -97,11 +106,20 @@ const Moon = () => {
   return (
     <div className={styles.moonClouds}>
       <div className={styles.moonCloudsImage}>
-        <Image src={moonClouds} alt="Misty moon in the clouds" />
+        <Image
+          src="/img/home/moon_clouds.svg"
+          alt="Misty moon in the clouds"
+          width={666}
+          height={276}
+        />
       </div>
     </div>
   )
 }
+
+/*
+ * Main Section
+ */
 
 const MainSection: FC<{
   lead?: ReactNode
@@ -119,8 +137,101 @@ const MainSection: FC<{
   )
 }
 
+/*
+ * Detail Section
+ */
+
 const DetailSection: FC = () => {
-  return <div className={styles.detailSection}>{}</div>
+  const { price: mintPrice, isLoading: isMintPriceLoading } = useMintPrice()
+  return (
+    <div className={styles.detailSection}>
+      <div className={visibility(styles.detailSectionGhostsWrapper, 'mobile')}>
+        <div className={styles.detailSectionGhosts} />
+      </div>
+      <div className={styles.detailSectionContent}>
+        <div className={styles.detailSectionItems}>
+          <DetailSectionItem
+            title="8888 ghosts"
+            subtitle="With various assets crafted with love"
+          />
+          <DetailSectionItem
+            title="200+ unique pictures"
+            subtitle="Handdrawed, and absolutely unique "
+          />
+          <DetailSectionItem
+            title={`${isMintPriceLoading ? '...' : mintPrice} eth`}
+            subtitle="You pay only for mint"
+          />
+          <div className={styles.detailSectionMintButton}>
+            <MintButton title="Mint comming soon" onRelease={() => {}} />
+          </div>
+        </div>
+        <div className={visibility(styles.detailSectionGhosts, 'desktop')} />
+      </div>
+    </div>
+  )
 }
+
+const DetailSectionItem: FC<{ title: string; subtitle: string }> = ({
+  title,
+  subtitle,
+}) => (
+  <div className={styles.detailSectionItem}>
+    <Heading1 styles={[styles.detailSectionItemTitle]}>{title}</Heading1>
+    <Paragraph styles={[styles.detailSectionItemSubtitle]}>
+      {subtitle}
+    </Paragraph>
+  </div>
+)
+
+/*
+ * Traits Section
+ */
+
+const TraitsSection: FC = () => {
+  return (
+    <div className={styles.traitsSection}>
+      <TraitsSectionItem
+        title="You can be in hat"
+        src="/img/home/ghost_1.svg"
+      />
+      <Visibility desktop>
+        <TraitsSectionItem
+          title="In cool glasses and suit"
+          src="/img/home/ghost_2.svg"
+          reverse
+        />
+      </Visibility>
+      {/* <TraitsSectionItem
+        title="In cool glasses and suit"
+        src="/img/home/ghost_2.svg"
+        reverse
+      /> */}
+      <Visibility mobile>
+        <TraitsSectionItem
+          title="In cool glasses and suit"
+          src="/img/home/ghost_2.svg"
+        />
+      </Visibility>
+      <TraitsSectionItem
+        title="Or not so ghosty at all"
+        src="/img/home/ghost_3.svg"
+      />
+    </div>
+  )
+}
+
+const TraitsSectionItem: FC<{ title: string; src: string; reverse?: boolean }> =
+  ({ title, src, reverse }) => {
+    return (
+      <div className={styles.traitsSectionItem}>
+        {reverse ? <Heading2>{title}</Heading2> : ''}
+        <div>
+          <Image src={src} alt="Traits" width={480} height={480} />
+        </div>
+        {reverse ? '' : <Heading2>{title}</Heading2>}
+      </div>
+    )
+  }
 
 export default Home
