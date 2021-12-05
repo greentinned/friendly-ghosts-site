@@ -51,7 +51,7 @@ const Home: NextPage = () => {
         <title>Friendly Ghosts</title>
         <meta
           name="description"
-          content="Even ghosts deserve love. Collectibles for supportive and friendly comunity behind it."
+          content="Even ghosts deserve love. Your non-toxic online identity for the most supportive community ever."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -73,11 +73,12 @@ const Home: NextPage = () => {
                 <Hero styles={[styles.titleLineLead]}>Even ghosts</Hero>
                 <Hero styles={[styles.titleLineTrail]}>deserve love</Hero>
                 <Paragraph styles={[styles.description]}>
-                  Collectibles for supportive and friendly comunity behind it
+                  Your non-toxic online identity for the most supportive
+                  community ever
                 </Paragraph>
                 <div className={styles.mintWrapper}>
                   <Paragraph styles={[helperStyles.mobileVisible]}>
-                    Became a friendly ghost
+                    Become a friendly ghost
                   </Paragraph>
                   <div className={styles.mintButtonWrapper}>
                     <MintButton
@@ -86,7 +87,7 @@ const Home: NextPage = () => {
                       onRelease={() => {}}
                     />
                     <Caption styles={[helperStyles.mobileHidden]}>
-                      Became <br /> a friendly ghost
+                      Become <br /> a friendly ghost
                     </Caption>
                   </div>
                 </div>
@@ -166,15 +167,15 @@ const DetailSection: FC = () => {
         <div className={styles.detailSectionItems}>
           <DetailSectionItem
             title="8888 ghosts"
-            subtitle="With various assets crafted with love"
+            subtitle="Unique characters crafter with love ♥︎"
           />
           <DetailSectionItem
-            title="200+ unique pictures"
-            subtitle="Handdrawed, and absolutely unique "
+            title="200+ unique traits"
+            subtitle="Hand drawn by a female artist"
           />
           <DetailSectionItem
             title={`${isMintPriceLoading ? '...' : mintPrice} eth`}
-            subtitle="You pay only for mint"
+            subtitle="+ 2.5% artist royalties on resells"
           />
           <div className={styles.detailSectionMintButton}>
             <MintButton title="Mint coming soon" onRelease={() => {}} />
@@ -206,13 +207,13 @@ const TraitsSection: FC = () => {
   return (
     <div className={styles.traitsSection}>
       <TraitsSectionItem
-        title="You can be in hat"
+        title="you can be in a cute hat..."
         // src="/img/home/ghost_1.svg"
         src={ghost1}
       />
       <Visibility desktop>
         <TraitsSectionItem
-          title="In cool glasses and suit"
+          title="... cool glasses and a suit..."
           // src="/img/home/ghost_2.svg"
           src={ghost2}
           reverse
@@ -220,13 +221,13 @@ const TraitsSection: FC = () => {
       </Visibility>
       <Visibility mobile>
         <TraitsSectionItem
-          title="In cool glasses and suit"
+          title="... cool glasses and a suit..."
           // src="/img/home/ghost_2.svg"
           src={ghost2}
         />
       </Visibility>
       <TraitsSectionItem
-        title="Or not so ghosty at all"
+        title="... or not so ghostly at all"
         // src="/img/home/ghost_3.svg"
         src={ghost3}
       />
@@ -254,18 +255,18 @@ const TraitsSectionItem: FC<{ title: string; src: string; reverse?: boolean }> =
 const SocialSection: FC = () => {
   return (
     <div className={styles.socialSection}>
-      <Heading1>If you ghost, you’re with us ♥︎</Heading1>
+      <Heading1>If you’re ghost, you’re with us ♥︎</Heading1>
       <div className={styles.socialSectionItems}>
         <SocialSectionItem
           icon="discord"
-          title="1000 supportive fantoms in friendly discord"
-          linkText="to server ➚"
+          title="thousands supportive ghosts in our friendly discord"
+          linkText="join us ➚"
           linkUrl="https://twitter.com"
         />
         <SocialSectionItem
           icon="twitter"
-          title="1000 supportive fantoms in friendly discord"
-          linkText="to server ➚"
+          title="all things ghostly and cool drops"
+          linkText="follow us ➚"
           linkUrl="https://twitter.com"
         />
       </div>
@@ -280,7 +281,12 @@ const SocialSectionItem: FC<{
   linkUrl: string
 }> = ({ icon, title, linkText, linkUrl }) => {
   return (
-    <div className={styles.socialSectionItem}>
+    <a
+      href={linkUrl}
+      target="_blank"
+      rel="noreferrer"
+      className={styles.socialSectionItem}
+    >
       <div
         className={`${styles.socialSectionItemIcon} ${
           styles[`socialSectionItemIcon__${icon}`]
@@ -288,18 +294,13 @@ const SocialSectionItem: FC<{
       ></div>
       <div className={styles.socialSectionItemContent}>
         <Paragraph styles={[styles.socialSectionItemText]}>{title}</Paragraph>
-        <a href={linkUrl} target="_blank" rel="noreferrer">
-          <Paragraph
-            styles={[
-              styles.socialSectionItemText,
-              styles.socialSectionItemLink,
-            ]}
-          >
-            {linkText}
-          </Paragraph>
-        </a>
+        <Paragraph
+          styles={[styles.socialSectionItemText, styles.socialSectionItemLink]}
+        >
+          {linkText}
+        </Paragraph>
       </div>
-    </div>
+    </a>
   )
 }
 
@@ -313,7 +314,7 @@ const TeamSection: FC = () => {
       <div className={styles.teamSectionHeader}>
         <Heading1>People behind the project</Heading1>
         <Paragraph>
-          created by 4 enthusiasts to test our skills and take our community
+          created by 4 enthusiasts to test our skills and take our community
           onchain
         </Paragraph>
       </div>
