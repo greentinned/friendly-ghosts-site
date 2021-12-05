@@ -1,6 +1,7 @@
 import NextImage, { ImageProps, ImageLoaderProps } from 'next/image'
 
-const basePath = process.env.NODE_ENV === 'production' ? process.env.HOST : './'
+const basePath =
+  process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_HOST : './'
 
 const loader = (props: ImageLoaderProps) => {
   const { src, width, quality } = props
