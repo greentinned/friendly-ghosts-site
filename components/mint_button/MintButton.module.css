@@ -1,3 +1,5 @@
+@import '../button/button.module.css';
+
 .main {
   color: #092f5b;
   background-color: #ffd399;
@@ -12,6 +14,10 @@
 .main:active {
   /* color: rgba(9, 47, 91, 0.5); */
   /* background-color: #ffe7c8; */
+}
+
+.Button_disabled.main {
+  background: red;
 }
 
 .minor {

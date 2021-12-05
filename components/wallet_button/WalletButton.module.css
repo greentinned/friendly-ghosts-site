@@ -7,7 +7,8 @@
 .main__error {
   color: #650d0d !important;
   background-color: #f78a8a !important;
-  border: 2px solid #e05e5e !important;
+  /* border: 2px solid #e05e5e !important; */
+  border: none !important;
 }
 
 .main__error:hover {
@@ -15,5 +16,5 @@
 }
 
 .main__error:active {
-  background-color: #f78a8a !important;
+  /* background-color: #f78a8a !important; */
 }

@@ -84,6 +84,7 @@ const Home: NextPage = () => {
                       // title={`Mint for ${isLoading ? '...' : mintPrice} eth`}
                       title="Mint coming soon"
                       onRelease={() => {}}
+                      disabled
                       main
                     />
                     <Caption styles={[helperStyles.mobileHidden]}>
@@ -178,7 +179,11 @@ const DetailSection: FC = () => {
             subtitle="+ 2.5% artist royalties on resells"
           />
           <div className={styles.detailSectionMintButton}>
-            <MintButton title="Mint coming soon" onRelease={() => {}} />
+            <MintButton
+              title="Mint coming soon"
+              disabled
+              onRelease={() => {}}
+            />
           </div>
         </div>
         <div className={visibility(styles.detailSectionGhosts, 'desktop')} />
@@ -419,7 +424,6 @@ const HonorariesSectionPerson: FC<{
           src={src}
           alt={twitter}
           className={styles.honorariesSectionImage}
-          // layout="fill"
         />
         <div className={styles.honorariesSectionTwitter}>
           <Caption>{twitter}</Caption>

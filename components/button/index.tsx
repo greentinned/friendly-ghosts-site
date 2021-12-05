@@ -16,7 +16,7 @@ const Button = (props: ButtonProps) => {
   } ${style || ''}`.trim()
 
   return (
-    <div className={cn} onClick={onRelease}>
+    <div className={cn} onClick={disabled ? undefined : onRelease}>
       <div className={styles.title}>{title}</div>
       <div className={styles.subtitle}>{subtitle}</div>
     </div>
