@@ -355,28 +355,32 @@ const TeamSection: FC = () => {
           <TeamSectionPerson
             src={sasha}
             name="Sasha"
-            twitter="sashatsereteli"
-            twitterUrl="https://twitter.com/sashatsereteli"
+            social="sashatsereteli"
+            socialUrl="https://twitter.com/sashatsereteli"
+            role="marketing"
           />
           <TeamSectionPerson
             src={egor}
             name="Egor"
-            twitter="rqrqrqrq"
-            twitterUrl="https://github.com/rqrqrqrq"
+            social="rqrqrqrq"
+            socialUrl="https://github.com/rqrqrqrq"
+            role="dev"
           />
         </div>
         <div className={styles.teamSectionPersonsCol}>
           <TeamSectionPerson
             src={cute}
             name="Cute"
-            twitter="armslookcute"
-            twitterUrl="https://twitter.com/armslookcute"
+            social="armslookcute"
+            socialUrl="https://twitter.com/armslookcute"
+            role="community"
           />
           <TeamSectionPerson
             src={nxcss}
             name="NXCSS"
-            twitter="nxcss"
-            twitterUrl="https://www.instagram.com/nxcss"
+            social="nxcss"
+            socialUrl="https://www.instagram.com/nxcss"
+            role="artist"
           />
         </div>
         <div className={styles.teamSectionPersonsCol}></div>
@@ -388,16 +392,18 @@ const TeamSection: FC = () => {
 const TeamSectionPerson: FC<{
   src: string
   name: string
-  twitter: string
-  twitterUrl: string
-}> = ({ src, name, twitter, twitterUrl }) => {
+  social: string
+  socialUrl: string
+  role: string
+}> = ({ src, name, social, socialUrl, role }) => {
   return (
-    <a href={twitterUrl} target="_blank" rel="noreferrer">
+    <a href={socialUrl} target="_blank" rel="noreferrer">
       <div className={styles.teamSectionPerson}>
         <Image src={src} alt={name} />
         <div className={styles.teamSectionPersonId}>
           <Heading3>{name}</Heading3>
-          <Caption>@{twitter}</Caption>
+          <Caption>@{social}</Caption>
+          <Caption styles={[styles.teamSectionPersonRole]}>{role}</Caption>
         </div>
       </div>
     </a>
@@ -414,7 +420,7 @@ const HonorariesSection: FC = () => {
     <div className={styles.honorariesSection}>
       <div className={styles.honorariesSectionHeader}>
         <Heading1>Honoraries</Heading1>
-        <Paragraph>All this great people with us</Paragraph>
+        <Paragraph>We made ghosts for these cool people</Paragraph>
       </div>
       <div className={styles.honorariesSectionPersons}>
         {isLoading
