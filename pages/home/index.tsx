@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   )
   const [walletError, setWalletError] = useState<string | undefined>(undefined)
 
-  const cn = `${styles.container} ${constStyles.media} ${constStyles.typo} ${
+  const cn = `${styles.container} ${constStyles.typo} ${
     constStyles['theme__' + systemTheme] || constStyles.theme__light
   }`.trim()
 
