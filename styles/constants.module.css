@@ -3,22 +3,41 @@
 /* Typography */
 
 .typo {
-  --typo-header-size: 114px;
-  --typo-header-height: 114px;
-  --typo-body-size: 32px;
-  --typo-body-height: 40px;
-  /* Эти размеры сохраняются для мобильных девайсов */
+  --typo-hero-size: 114px;
+  --typo-hero-height: 90%;
+  --typo-h1-size: 80px;
+  --typo-h1-height: 100%;
+  --typo-h2-size: 64px;
+  --typo-h2-height: 100%;
+  --typo-h3-size: 48px;
+  --typo-h3-height: 100%;
+  --typo-p-size: 32px;
+  --typo-p-height: 110%;
+  --typo-c-size: 24px;
+  --typo-c-height: 110%;
   --typo-button-title-size: 24px;
-  --typo-button-title-height: 26px;
+  --typo-button-title-height: 110%;
   --typo-button-subtitle-size: 16px;
-  --typo-button-subtitle-height: 19px;
+  --typo-button-subtitle-height: 110%;
 }
 @media (max-width: 640px) {
   .typo {
-    --typo-header-size: 48px;
-    --typo-header-height: 48px;
-    --typo-body-size: 24px;
-    --typo-body-height: 32px;
+    --typo-hero-size: 48px;
+    --typo-hero-height: 90%;
+    --typo-h1-size: 40px;
+    --typo-h1-height: 100%;
+    --typo-h2-size: 32px;
+    --typo-h2-height: 100%;
+    --typo-h3-size: 24px;
+    --typo-h3-height: 100%;
+    --typo-p-size: 20px;
+    --typo-p-height: 110%;
+    --typo-c-size: 16px;
+    --typo-c-height: 110%;
+    --typo-button-title-size: 16px;
+    --typo-button-title-height: 110%;
+    --typo-button-subtitle-size: 10px;
+    --typo-button-subtitle-height: 110%;
   }
 }
 

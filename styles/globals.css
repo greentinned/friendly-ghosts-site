@@ -14,3 +14,26 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* Fonts */
+
+@font-face {
+  src: url('../public/fonts/Token7-Regular.woff2');
+  font-family: 'Token 7';
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  src: url('../public/fonts/GT-Eesti-Display-Regular.woff2');
+  font-family: 'GT Eesti Display';
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  src: url('../public/fonts/GT-Eesti-Display-Medium.woff2');
+  font-family: 'GT Eesti Display';
+  font-weight: 700;
+  font-style: normal;
+}

@@ -1,0 +1,41 @@
+.main {
+  color: var(--theme-main-text);
+}
+
+.hero {
+  font-family: 'Token 7';
+  font-size: var(--typo-hero-size);
+  line-height: var(--typo-hero-height);
+}
+
+.h1 {
+  font-family: 'Token 7';
+  font-size: var(--typo-h1-size);
+  line-height: var(--typo-h1-height);
+}
+
+.h2 {
+  font-family: 'Token 7';
+  font-size: var(--typo-h2-size);
+  line-height: var(--typo-h2-height);
+}
+
+.h3 {
+  font-family: 'Token 7';
+  font-size: var(--typo-h3-size);
+  line-height: var(--typo-h3-height);
+}
+
+.p {
+  font-family: 'GT Eesti Display';
+  font-weight: normal;
+  font-size: var(--typo-p-size);
+  line-height: var(--typo-p-height);
+}
+
+.c {
+  font-family: 'GT Eesti Display';
+  font-weight: normal;
+  font-size: var(--typo-c-size);
+  line-height: var(--typo-c-height);
+}
