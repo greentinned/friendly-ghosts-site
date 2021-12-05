@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
-const basePath = process.env.NODE_ENV === 'production' ? '/repo' : ''
+const basePath =
+  process.env.NODE_ENV === 'production' ? '/friendly-ghosts-site' : ''
 
 module.exports = {
   basePath,
