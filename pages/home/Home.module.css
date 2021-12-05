@@ -7,7 +7,7 @@
   position: fixed;
   inset: 0px;
   background-color: rgba(255, 255, 255, 0.75);
-  z-index: 2;
+  z-index: 1000;
 }
 
 .main {
@@ -143,12 +143,12 @@
   height: 640px;
   border-radius: 80px;
   margin-top: 180px;
+  z-index: 1;
 }
 @media (max-width: 640px) {
   .detailSection {
     border-radius: 40px;
     margin-top: -32px;
-    z-index: 1000;
   }
 }
 
