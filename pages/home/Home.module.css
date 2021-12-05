@@ -456,7 +456,7 @@
   max-width: 220px;
   min-width: 220px;
   padding: 10px;
-  padding-bottom: 0;
+  padding-bottom: 2px;
   background-color: #fff;
   border-radius: 8px;
   margin-top: 16px;
@@ -493,6 +493,7 @@
     max-width: 140px;
     min-width: 140px;
     padding: 8px;
+    padding-bottom: 2px;
   }
   .honorariesSectionTwitter {
     padding: 8px 0;
