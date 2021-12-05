@@ -9,6 +9,9 @@ import helperStyles from '../../styles/helpers.module.css'
 import styles from './Home.module.css'
 import ghostClouds from './img/ghost_clouds.svg'
 import moonClouds from './img/moon_clouds.svg'
+import ghost1 from './img/ghost_1.svg'
+import ghost2 from './img/ghost_2.svg'
+import ghost3 from './img/ghost_3.svg'
 import {
   Header,
   MintButton,
@@ -85,7 +88,7 @@ const Home: NextPage = () => {
             trail={
               <div className={styles.ghostClouds}>
                 <Image
-                  src="/img/home/ghost_clouds.svg"
+                  src={ghostClouds}
                   alt="Misty ghost in the clouds"
                   width={476}
                   height={315}
@@ -107,7 +110,7 @@ const Moon = () => {
     <div className={styles.moonClouds}>
       <div className={styles.moonCloudsImage}>
         <Image
-          src="/img/home/moon_clouds.svg"
+          src={moonClouds}
           alt="Misty moon in the clouds"
           width={666}
           height={276}
@@ -193,29 +196,28 @@ const TraitsSection: FC = () => {
     <div className={styles.traitsSection}>
       <TraitsSectionItem
         title="You can be in hat"
-        src="/img/home/ghost_1.svg"
+        // src="/img/home/ghost_1.svg"
+        src={ghost1}
       />
       <Visibility desktop>
         <TraitsSectionItem
           title="In cool glasses and suit"
-          src="img/home/ghost_2.svg"
+          // src="/img/home/ghost_2.svg"
+          src={ghost2}
           reverse
         />
       </Visibility>
-      {/* <TraitsSectionItem
-        title="In cool glasses and suit"
-        src="/img/home/ghost_2.svg"
-        reverse
-      /> */}
       <Visibility mobile>
         <TraitsSectionItem
           title="In cool glasses and suit"
-          src="/img/home/ghost_2.svg"
+          // src="/img/home/ghost_2.svg"
+          src={ghost2}
         />
       </Visibility>
       <TraitsSectionItem
         title="Or not so ghosty at all"
-        src="/img/home/ghost_3.svg"
+        // src="/img/home/ghost_3.svg"
+        src={ghost3}
       />
     </div>
   )
