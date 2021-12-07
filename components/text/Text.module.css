@@ -39,3 +39,11 @@
   font-size: var(--typo-c-size);
   line-height: var(--typo-c-height);
 }
+
+/*
+ * Mods
+ */
+
+.invert {
+    color: var(--theme-main-text-invert) !important;
+}
