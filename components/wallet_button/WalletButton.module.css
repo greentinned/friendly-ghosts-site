@@ -4,17 +4,12 @@
 /* Mods */
 /* TODO: Пофиксить !important в стилях */
 
-.main__error {
+.error {
   color: #650d0d !important;
   background-color: #f78a8a !important;
-  /* border: 2px solid #e05e5e !important; */
   border: none !important;
 }
 
-.main__error:hover {
+.error:hover {
   background-color: #f78a8a !important;
-}
-
-.main__error:active {
-  /* background-color: #f78a8a !important; */
 }
