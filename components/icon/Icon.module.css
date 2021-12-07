@@ -1,0 +1,27 @@
+.main {
+    background: var(--theme-main-text-invert);
+}
+
+/* Mods  */
+
+.main.type--minus {
+    mask: url(./img/minus.svg) no-repeat center center;
+}
+
+.main.type--plus {
+    mask: url(./img/plus.svg) no-repeat center center;
+}
+
+.main.size--m {
+    min-width: 24px;
+    min-height: 24px;
+    max-width: 24px;
+    max-height: 24px;
+}
+
+.main.size--l {
+    min-width: 56px;
+    min-height: 56px;
+    max-width: 56px;
+    max-height: 56px;
+}

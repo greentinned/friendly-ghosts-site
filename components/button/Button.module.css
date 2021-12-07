@@ -5,7 +5,7 @@
   align-items: center;
   box-sizing: border-box;
   height: 64px;
-  padding: 0 20px;
+  padding: 0 40px;
   color: var(--theme-main-text);
   border: 2px solid #ffffff;
   border-radius: 24px;
@@ -52,4 +52,13 @@
 
 .wide {
   padding: 0 80px;
+}
+
+.max {
+    width: 100%;
+}
+
+.invert.main {
+    color: var(--theme-main-text-invert);
+    border: 2px solid var(--theme-main-text-invert)/*#123B6B*/;
 }

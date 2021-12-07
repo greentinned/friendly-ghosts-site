@@ -6,10 +6,37 @@
 /* Elems */
 
 .modalOverlay {
-  position: fixed;
-  inset: 0px;
-  background-color: rgba(255, 255, 255, 0.75);
-  z-index: 1000;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inset: 0px;
+    background-color: rgba(16, 34, 84, 0.8);
+    z-index: 1000;
+}
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    border-radius: 66px;
+    padding: 40px;
+    padding-top: 56px;
+    max-width: 804px;
+    background-color: var(--theme-minor-background);
+}
+.modalMintSubtitle {
+    margin-top: 56px;
+    color: var(--theme-main-text-invert) !important;
+}
+.modalMintAmount {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    gap: 16px;
+}
+.modalMintButtons {
+    display: flex;
+    gap: 16px;
+    margin-top: 56px;
 }
 
 .main {

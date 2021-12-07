@@ -1,46 +1,69 @@
 import useSWR from 'swr'
-import { honorData } from '../data'
-
-const sleep = (milliseconds: number) => {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds))
-}
-
-async function fetcher(
-  type: 'mintPrice' | 'wallet' | 'honorData'
-): Promise<any> {
-  if (type === 'mintPrice') {
-    await sleep(1000)
-    return Promise.resolve(0.02)
-  }
-
-  if (type === 'wallet') {
-    await sleep(1000)
-    return Promise.resolve({})
-  }
-
-  if (type === 'honorData') {
-    return Promise.resolve(honorData)
-  }
-}
+import { useState } from 'react'
+import { walletFetcher, mintPriceFetcher, mintFetcher, honorariesFetcher } from '../web3'
 
 export function useMintPrice(): {
-  price: number
-  isLoading: boolean
-  error?: string
+    amount: number,
+    minAmount: number,
+    maxAmount: number,
+    setAmount(newAmount: number): void,
+    price?: number
+    isLoading: boolean
+    error?: string
 } {
-  const { data, error } = useSWR('mintPrice', fetcher)
+    const [_amount, _setAmount] = useState(1)
+    const minAmount = 1
+    const maxAmount = 20
+    const { data, error } = useSWR('mintPrice', mintPriceFetcher)
+    const isLoading = !error && !data
 
-  return { price: data, isLoading: !error && !data, error: error }
+    function setAmount(newAmount: number) {
+        if (newAmount < minAmount || newAmount > maxAmount) return
+        _setAmount(newAmount)
+    }
+
+    return {
+        amount: _amount,
+        minAmount,
+        maxAmount,
+        setAmount,
+        price: isLoading ? 0 : (data * _amount),
+        isLoading,
+        error: error
+    }
+}
+
+// Минтим количество токенов, возвращает ссылки на картинки либо ошибку
+export function useMint(shouldMint: boolean, amount: number): {
+    images?: Array<string>,
+    isLoading: boolean,
+    error?: string
+} {
+    const { data, error } = useSWR(shouldMint ? ['mint', amount] : null, mintFetcher)
+    return {
+        images: data,
+        isLoading: shouldMint && !error && !data,
+        error: error
+    }
+}
+
+export function useWallet(shouldConnect: boolean): {
+    address?: string,
+    isLoading: boolean,
+    error?: string
+} {
+    const { data, error } = useSWR(shouldConnect ? 'wallet' : null, walletFetcher)
+    return { address: data, isLoading: shouldConnect && !error && !data, error: error }
 }
 
 export function useHonoraries(): {
-  data: Array<{
-    src: StaticImageData
-    name: string
-    twitterUrl: string
-  }>
-  isLoading: boolean
+    data: Array<{
+        src: StaticImageData
+        name: string
+        twitterUrl: string
+    }>
+    isLoading: boolean
 } {
-  const { data, error } = useSWR('honorData', fetcher)
-  return { data, isLoading: !error && !data }
+    const { data, error } = useSWR('honorData', honorariesFetcher)
+    return { data, isLoading: !error && !data }
 }

@@ -1,24 +1,30 @@
+import { FC } from 'react'
 import styles from './Button.module.css'
 
 export interface ButtonProps {
-    title: string
+    title?: string
     subtitle?: string
     disabled?: boolean
+    invert?: boolean
     wide?: boolean
+    max?: boolean
     style?: string
     onRelease(): void
 }
 
-const Button = (props: ButtonProps) => {
-    const { title, subtitle, disabled, wide, style, onRelease } = props
-    const cn = `${styles.main} ${disabled ? styles.disabled : ''} ${wide ? styles.wide : ''
-        } ${style || ''}`.trim()
+const Button: FC<ButtonProps> = (props) => {
+    const { title, subtitle, disabled, invert, wide, max, style, onRelease, children } = props
+    const cn = `${styles.main} ${disabled ? styles.disabled : ''} ${invert ? styles.invert : ''} ${wide ? styles.wide : ''
+        } ${max ? styles.max : ''} ${style || ''}`.trim()
 
     return (
-        <div className={cn} onClick={disabled ? undefined : onRelease}>
-            <div className={styles.title}>{title}</div>
-            <div className={styles.subtitle}>{subtitle}</div>
-        </div>
+        <div className={cn} onClick={disabled ? undefined : onRelease}>{
+            children ||
+            <>
+                <div className={styles.title}>{title}</div>
+                <div className={styles.subtitle}>{subtitle}</div>
+            </>
+        }</div>
     )
 }
 
