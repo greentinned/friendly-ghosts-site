@@ -2,7 +2,7 @@ import { FC } from 'react'
 import styles from './Icon.module.css'
 
 export interface IconProps {
-    type: 'minus' | 'plus'
+    type: 'minus' | 'plus' | 'twitter'
     size?: 'm' | 'l'
 }
 

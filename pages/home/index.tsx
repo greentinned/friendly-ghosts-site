@@ -13,6 +13,8 @@ import halfMoonClouds from './img/half_moon_clouds.svg'
 import ghost1 from './img/ghost_1.svg'
 import ghost2 from './img/ghost_2.svg'
 import ghost3 from './img/ghost_3.svg'
+import tildaSign from './img/~.svg'
+import dashSign from './img/-.svg'
 import sasha from './img/sasha.svg'
 import cute from './img/cute.svg'
 import egor from './img/egor.svg'
@@ -32,6 +34,7 @@ import {
     Button,
     IconButton,
     Icon,
+    GhostCard,
 } from '../../components'
 import { visibility } from '../../components/visibility'
 import { randArb } from '../../helpers'
@@ -43,8 +46,12 @@ Modal.setAppElement('#__next')
 
 const Home: NextPage = () => {
     const systemTheme = useSystemTheme(true)
-    const [modalIsOpen, setModalOpen] = useState(false)
+    const [isMintModalOpen, setMintModalOpen] = useState(false)
+    const [isMintResultModalReady, setMintResultModalReady] = useState(false)
+    const [isMintErrorModalReady, setMintErrorModalReady] = useState(false)
     const [shouldConnectWallet, setShouldConnectWallet] = useState(false)
+    const [shouldMint, setShouldMint] = useState(false)
+
     const {
         amount: mintAmount,
         minAmount: mintMinAmount,
@@ -52,14 +59,27 @@ const Home: NextPage = () => {
         setAmount: setMintAmount,
         price: mintPrice,
     } = useMintPrice()
+
     const {
         address: walletAddress,
         isLoading: isWalletLoading,
         error: walletError
     } = useWallet(shouldConnectWallet)
 
+    /* const {
+*     images: mintImages,
+*     isLoading: isMintLoading,
+*     mutate: mintMutate,
+*     error: mintError
+     * } = useMint(shouldMint, mintAmount) */
+    const mintData = useMint(shouldMint, mintAmount)
+
+    console.log(mintData)
+
     const cn = `${styles.container} ${constStyles.typo} ${constStyles['theme__' + systemTheme] || constStyles.theme__light
         }`.trim()
+
+    /* const cnHiddenByModal = `${isMintingModalOpen ? styles.hiddenByModal : ''}`.trim() */
 
     return (
         <div className={cn}>
@@ -107,8 +127,8 @@ const Home: NextPage = () => {
             </Head>
 
             <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setModalOpen(false)}
+                isOpen={isMintModalOpen}
+                onRequestClose={() => setMintModalOpen(false)}
                 contentLabel="Mint modal"
                 className={styles.modalContent}
                 portalClassName={cn}
@@ -117,26 +137,99 @@ const Home: NextPage = () => {
                 <Heading1 invert>Mint your ghosts</Heading1>
                 <Paragraph invert styles={[styles.modalMintSubtitle]}>how many ghosts do you want?</Paragraph>
                 <div className={styles.modalMintAmount}>
-                    <IconButton
-                        disabled={mintAmount <= mintMinAmount}
-                        icon={<Icon type="minus" />}
-                        invert
-                        onRelease={() => { setMintAmount(mintAmount - 1) }}
-                    />
-                    <Heading1 invert>{mintAmount}</Heading1>
-                    <IconButton
-                        disabled={mintAmount >= mintMaxAmount}
-                        icon={<Icon type="plus" />}
-                        invert
-                        onRelease={() => { setMintAmount(mintAmount + 1) }}
-                    />
+                    <div className={styles.modalMintCounter}>
+                        <IconButton
+                            disabled={mintAmount <= mintMinAmount}
+                            icon={<Icon type="minus" />}
+                            invert
+                            onRelease={() => { setMintAmount(mintAmount - 1) }}
+                        />
+                        <Heading1 invert>{mintAmount}</Heading1>
+                        <IconButton
+                            disabled={mintAmount >= mintMaxAmount}
+                            icon={<Icon type="plus" />}
+                            invert
+                            onRelease={() => { setMintAmount(mintAmount + 1) }}
+                        />
+                    </div>
                     <Heading1 invert>{mintPrice} eth</Heading1>
                 </div>
                 <div className={styles.modalMintButtons}>
-                    <MintButton title="Mint" max onRelease={() => { }} />
-                    <Button title="Cancel" invert onRelease={() => { setModalOpen(false) }} />
+                    <MintButton
+                        title="Mint"
+                        max
+                        onRelease={() => {
+                            setMintModalOpen(false)
+                            setShouldMint(true)
+                            setMintResultModalReady(true)
+                            setMintErrorModalReady(true)
+                        }}
+                    />
+                    <Button
+                        title="Cancel"
+                        invert
+                        onRelease={() => {
+                            setMintModalOpen(false)
+                        }}
+                    />
                 </div>
             </Modal>
+
+            <Modal
+                isOpen={mintData.isLoading}
+                contentLabel="Minting modal"
+                className={styles.modalMintingContent}
+                portalClassName={cn}
+                overlayClassName={styles.modalOverlay}
+            >
+                <Hero styles={[styles.modalMintingContentTitle]}>Mint your ghosts</Hero>
+                <Image src={tildaSign} alt="Minting in progress" />
+            </Modal>
+
+            <Modal
+                isOpen={isMintErrorModalReady && mintData.error !== undefined}
+                contentLabel="Mint error modal"
+                className={styles.modalMintErrorContent}
+                portalClassName={cn}
+                overlayClassName={styles.modalOverlay}
+            >
+                <Hero styles={[styles.modalMintErrorContentTitle]}>Oops</Hero>
+                <Image src={dashSign} alt="Delimeter" />
+                <Paragraph>{mintData.error}</Paragraph>
+                <Button
+                    title="Oh, that's sad"
+                    onRelease={() => {
+                        mintData.mutate()
+                        setMintErrorModalReady(false)
+                    }}
+                />
+            </Modal>
+
+            <Modal
+                isOpen={isMintResultModalReady && mintData.images !== undefined}
+                contentLabel="Mint result modal"
+                className={styles.modalMintResultContent}
+                portalClassName={cn}
+                overlayClassName={styles.modalOverlay}
+            >
+                <Hero styles={[styles.modalMintResultContentTitle]}>Aha! We caught it</Hero>
+                <div className={styles.modalMintResultContentScroll}>
+                    <div className={styles.modalMintResultContentScrollContent}>
+                        {mintData.images?.map((i, idx) => <GhostCard key={`${i}-${idx}`} url={i} />)}
+                    </div>
+                </div>
+                <div className={styles.modalMintResultContentButtonWrapper}>
+                    <Button
+                        title="Close"
+                        style={styles.modalMintResultContentButton}
+                        onRelease={() => {
+                            setShouldMint(false)
+                            setMintResultModalReady(false)
+                        }}
+                    />
+                </div>
+            </Modal>
+
 
             <main className={styles.main}>
                 <Header
@@ -145,10 +238,12 @@ const Home: NextPage = () => {
                     walletError={walletError}
                     onConnectWallet={() => { setShouldConnectWallet(true) }}
                 />
+                {/* <div className={cnHiddenByModal}> */}
                 <Moon />
+                {/* </div> */}
                 <div className={styles.contentWrapper}>
-                    <MainSection onMint={() => { setModalOpen(true) }} />
-                    <DetailSection onMint={() => { setModalOpen(true) }} />
+                    <MainSection onMint={() => { setMintModalOpen(true) }} />
+                    <DetailSection onMint={() => { setMintModalOpen(true) }} />
                     <TraitsSection />
                     <SocialSection />
                     <TeamSection />

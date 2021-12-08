@@ -10,6 +10,7 @@ import Image from './image'
 import { Hero, Heading1, Heading2, Heading3, Paragraph, Caption } from './text'
 import Visibility from './visibility'
 import Icon from './icon'
+import GhostCard from './ghost_card'
 
 export {
     Header,
@@ -29,4 +30,5 @@ export {
     Image,
     Visibility,
     Icon,
+    GhostCard,
 }

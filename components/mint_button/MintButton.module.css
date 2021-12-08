@@ -1,36 +1,23 @@
 .main {
-  color: #092f5b;
-  background-color: #ffd399;
-  /* border: 2px solid #a06b39; */
-  border: none;
+    color: #092f5b;
+    background-color: #ffd399;
+    border: none;
 }
 
 .main:hover {
-  background-color: #e8b168;
-}
-
-.main:active {
-  /* color: rgba(9, 47, 91, 0.5); */
-  /* background-color: #ffe7c8; */
+    background-color: #e8b168;
 }
 
 .Button_disabled.main {
-  background: red;
+    background: red;
 }
 
 .minor {
-  color: #f4f4f4;
-  background-color: #123b6b;
-  /* border: 2px solid #052345; */
-  border: none;
+    color: #f4f4f4;
+    background-color: #123b6b;
+    border: none;
 }
 
 .minor:hover {
-  /* background-color: #3f6b9e; */
-  background-color: #0a2e59;
-}
-
-.minor:active {
-  /* color: rgba(244, 244, 244, 0.3);
-  background-color: #123b6b; */
+    background-color: #0a2e59;
 }

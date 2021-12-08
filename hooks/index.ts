@@ -1,4 +1,4 @@
-import useSWR from 'swr'
+import useSWR, { KeyedMutator } from 'swr'
 import { useState } from 'react'
 import { walletFetcher, mintPriceFetcher, mintFetcher, honorariesFetcher } from '../web3'
 
@@ -29,7 +29,7 @@ export function useMintPrice(): {
         setAmount,
         price: isLoading ? 0 : (data * _amount),
         isLoading,
-        error: error
+        error: error?.message
     }
 }
 
@@ -37,13 +37,15 @@ export function useMintPrice(): {
 export function useMint(shouldMint: boolean, amount: number): {
     images?: Array<string>,
     isLoading: boolean,
+    mutate: KeyedMutator<any>,
     error?: string
 } {
-    const { data, error } = useSWR(shouldMint ? ['mint', amount] : null, mintFetcher)
+    const { data, mutate, error } = useSWR(shouldMint ? ['mint', amount] : null, mintFetcher)
     return {
         images: data,
         isLoading: shouldMint && !error && !data,
-        error: error
+        mutate,
+        error: error?.message
     }
 }
 
@@ -53,7 +55,11 @@ export function useWallet(shouldConnect: boolean): {
     error?: string
 } {
     const { data, error } = useSWR(shouldConnect ? 'wallet' : null, walletFetcher)
-    return { address: data, isLoading: shouldConnect && !error && !data, error: error }
+    return {
+        address: data,
+        isLoading: shouldConnect && !error && !data,
+        error: error?.message
+    }
 }
 
 export function useHonoraries(): {

@@ -12,6 +12,10 @@
     mask: url(./img/plus.svg) no-repeat center center;
 }
 
+.main.type--twitter {
+    mask: url(./img/twitter.svg) no-repeat center center;
+}
+
 .main.size--m {
     min-width: 24px;
     min-height: 24px;
@@ -20,8 +24,8 @@
 }
 
 .main.size--l {
-    min-width: 56px;
-    min-height: 56px;
-    max-width: 56px;
-    max-height: 56px;
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 48px;
+    max-height: 48px;
 }
