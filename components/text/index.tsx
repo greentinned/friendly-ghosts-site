@@ -2,6 +2,7 @@ import { FC } from 'react'
 import textStyles from './Text.module.css'
 
 export interface TextProps {
+    center?: boolean;
     invert?: boolean;
     styles?: Array<string>
 }
@@ -12,8 +13,8 @@ const safeConcatStyles = (
 ): Array<string> => [style, ...(styles ? styles : [])]
 
 export const Text: FC<TextProps> = (props) => {
-    const { invert, styles, children } = props
-    const cn = `${textStyles.main} ${invert ? textStyles.invert : ''} ${styles ? styles.join(' ') : ''}`.trim()
+    const { center, invert, styles, children } = props
+    const cn = `${textStyles.main} ${center ? textStyles.center : ''} ${invert ? textStyles.invert : ''} ${styles ? styles.join(' ') : ''}`.trim()
 
     return <span className={cn}>{children}</span>
 }

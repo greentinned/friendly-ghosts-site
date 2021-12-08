@@ -44,6 +44,10 @@
  * Mods
  */
 
+.center {
+    text-align: center;
+}
+
 .invert {
     color: var(--theme-main-text-invert) !important;
 }
