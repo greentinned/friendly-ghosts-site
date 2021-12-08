@@ -66,20 +66,11 @@ const Home: NextPage = () => {
         error: walletError
     } = useWallet(shouldConnectWallet)
 
-    /* const {
-*     images: mintImages,
-*     isLoading: isMintLoading,
-*     mutate: mintMutate,
-*     error: mintError
-     * } = useMint(shouldMint, mintAmount) */
     const mintData = useMint(shouldMint, mintAmount)
-
     console.log(mintData)
 
     const cn = `${styles.container} ${constStyles.typo} ${constStyles['theme__' + systemTheme] || constStyles.theme__light
         }`.trim()
-
-    /* const cnHiddenByModal = `${isMintingModalOpen ? styles.hiddenByModal : ''}`.trim() */
 
     return (
         <div className={cn}>
@@ -125,6 +116,8 @@ const Home: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            {/* Mint Modal */}
 
             <Modal
                 isOpen={isMintModalOpen}
@@ -175,6 +168,8 @@ const Home: NextPage = () => {
                 </div>
             </Modal>
 
+            {/* Mint in progress Modal */}
+
             <Modal
                 isOpen={mintData.isLoading}
                 contentLabel="Minting modal"
@@ -186,6 +181,8 @@ const Home: NextPage = () => {
                 <Image src={tildaSign} alt="Minting in progress" />
             </Modal>
 
+            {/* Mint error Modal  */}
+
             <Modal
                 isOpen={isMintErrorModalReady && mintData.error !== undefined}
                 contentLabel="Mint error modal"
@@ -195,15 +192,18 @@ const Home: NextPage = () => {
             >
                 <Hero styles={[styles.modalMintErrorContentTitle]}>Oops</Hero>
                 <Image src={dashSign} alt="Delimeter" />
-                <Paragraph>{mintData.error}</Paragraph>
+                <Paragraph center>{mintData.error}</Paragraph>
                 <Button
                     title="Oh, that's sad"
                     onRelease={() => {
-                        mintData.mutate()
+                        mintData.mutate(undefined, false)
+                        setShouldMint(false)
                         setMintErrorModalReady(false)
                     }}
                 />
             </Modal>
+
+            {/* Mint result Modal  */}
 
             <Modal
                 isOpen={isMintResultModalReady && mintData.images !== undefined}
@@ -223,6 +223,7 @@ const Home: NextPage = () => {
                         title="Close"
                         style={styles.modalMintResultContentButton}
                         onRelease={() => {
+                            mintData.mutate(undefined, false)
                             setShouldMint(false)
                             setMintResultModalReady(false)
                         }}
@@ -238,9 +239,7 @@ const Home: NextPage = () => {
                     walletError={walletError}
                     onConnectWallet={() => { setShouldConnectWallet(true) }}
                 />
-                {/* <div className={cnHiddenByModal}> */}
                 <Moon />
-                {/* </div> */}
                 <div className={styles.contentWrapper}>
                     <MainSection onMint={() => { setMintModalOpen(true) }} />
                     <DetailSection onMint={() => { setMintModalOpen(true) }} />

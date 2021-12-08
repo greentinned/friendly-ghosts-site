@@ -1,6 +1,11 @@
 import useSWR, { KeyedMutator } from 'swr'
 import { useState } from 'react'
-import { walletFetcher, mintPriceFetcher, mintFetcher, honorariesFetcher } from '../web3'
+import {
+    walletFetcher,
+    mintPriceFetcher,
+    mintFetcher,
+    honorariesFetcher
+} from '../web3'
 
 export function useMintPrice(): {
     amount: number,
@@ -33,7 +38,6 @@ export function useMintPrice(): {
     }
 }
 
-// Минтим количество токенов, возвращает ссылки на картинки либо ошибку
 export function useMint(shouldMint: boolean, amount: number): {
     images?: Array<string>,
     isLoading: boolean,
@@ -41,6 +45,7 @@ export function useMint(shouldMint: boolean, amount: number): {
     error?: string
 } {
     const { data, mutate, error } = useSWR(shouldMint ? ['mint', amount] : null, mintFetcher)
+
     return {
         images: data,
         isLoading: shouldMint && !error && !data,

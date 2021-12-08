@@ -22,12 +22,12 @@ export async function mintFetcher(_url: string, amount: number): Promise<any> {
 
     // TODO: Should throw if error
     // https://swr.vercel.app/docs/error-handling
-    if (false) {
+    if (amount == 4) {
         const error = new Error('An error occurred while fetching the data.')
         throw error
     }
 
-    const data = []
+    const data: Array<string> = []
     for (let i = 1; i <= amount; i++) {
         data.push('https://friendlyghosts.xyz//_next/static/media/17.331e9a80.jpeg?w=1200&q=75')
     }
