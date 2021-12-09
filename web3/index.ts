@@ -31,7 +31,7 @@ export async function mintMetaFetcher(_url: string): Promise<{
     return {
         minAmount: 1,
         maxAmount: 20,
-        freeMint: false
+        freeMint: true
     }
 }
 
