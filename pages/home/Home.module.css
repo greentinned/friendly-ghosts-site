@@ -92,8 +92,7 @@
         top: 0;
         left: auto;
         right: 0;
-        /* transform: translatсe(10%, -70%) rotateZ(4deg); */
-        transform: translatсe(50%, -50%) rotateZ(4deg);
+        transform: translate(10%, -70%) rotateZ(4deg);
         padding: 8px;
         border-radius: 12px;
         width: 96px;
