@@ -47,9 +47,28 @@
     gap: 24px;
 }
 .modalMintButtons {
+    position: relative;
     display: flex;
     gap: 16px;
     margin-top: 56px;
+}
+.modalMintFreeMintLabel {
+    position: relative;
+}
+.modalMintFreeMintLabel:after {
+    content: '1 free mint for your honor';
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%) rotateZ(4deg);
+    padding: 12px;
+    border-radius: 16px;
+    width: 146px;
+    background-color: #ffd399;
+    font-family: 'GT Eesti Display';
+    font-size: var(--typo-c-size);
+    line-height: var(--typo-c-height);
+    color: #123b6b;
 }
 @media (max-width: 640px) {
     .modalMintAmount {
@@ -68,6 +87,15 @@
         flex-direction: column;
         margin-top: 24px;
         gap: 8px;
+    }
+    .modalMintFreeMintLabel:after {
+        top: 0;
+        left: auto;
+        right: 0;
+        transform: translate(10%, -70%) rotateZ(4deg);
+        padding: 8px;
+        border-radius: 12px;
+        width: 96px;
     }
 }
 

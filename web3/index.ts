@@ -3,18 +3,36 @@ import { sleep } from '../helpers'
 
 export async function walletFetcher(): Promise<any> {
     // TODO: Should throw if error
+    // https://swr.vercel.app/docs/error-handling
     await sleep(3000)
     return Promise.resolve('0xF00...BAR')
 }
 
 export async function honorariesFetcher(): Promise<any> {
     // TODO: Should throw if error
+    // https://swr.vercel.app/docs/error-handling
     return Promise.resolve(honorData)
 }
 
 export async function mintPriceFetcher(_url: string): Promise<any> {
     // TODO: Should throw if error
+    // https://swr.vercel.app/docs/error-handling
     return Promise.resolve(0.02)
+}
+
+export async function mintMetaFetcher(_url: string): Promise<{
+    minAmount: number,
+    maxAmount: number,
+    freeMint: boolean,
+}> {
+    await sleep(1000)
+    // TODO: Should throw if error
+    // https://swr.vercel.app/docs/error-handling
+    return {
+        minAmount: 1,
+        maxAmount: 20,
+        freeMint: false
+    }
 }
 
 export async function mintFetcher(_url: string, amount: number): Promise<any> {
@@ -22,7 +40,7 @@ export async function mintFetcher(_url: string, amount: number): Promise<any> {
 
     // TODO: Should throw if error
     // https://swr.vercel.app/docs/error-handling
-    if (amount == 4) {
+    if (amount == 4) { // this error if for testing
         const error = new Error('An error occurred while fetching the data.')
         throw error
     }

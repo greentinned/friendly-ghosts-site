@@ -3,36 +3,51 @@ import { useState } from 'react'
 import {
     walletFetcher,
     mintPriceFetcher,
+    mintMetaFetcher,
     mintFetcher,
     honorariesFetcher
 } from '../web3'
 
 export function useMintPrice(): {
+    price?: number,
+    isLoading: boolean,
+} {
+    const { data, error } = useSWR('/api/mint/price', mintPriceFetcher)
+    const isLoading = !error && !data
+    return {
+        price: data,
+        isLoading,
+    }
+}
+
+export function useMintCalc(): {
     amount: number,
-    minAmount: number,
-    maxAmount: number,
+    minAmount?: number,
+    maxAmount?: number,
     setAmount(newAmount: number): void,
-    price?: number
-    isLoading: boolean
-    error?: string
+    freeMint?: boolean,
+    price?: string,
+    isLoading: boolean,
+    error?: string,
 } {
     const [_amount, _setAmount] = useState(1)
-    const minAmount = 1
-    const maxAmount = 20
-    const { data, error } = useSWR('mintPrice', mintPriceFetcher)
-    const isLoading = !error && !data
+    const priceData = useSWR('/api/mint/price', mintPriceFetcher)
+    const { data, error } = useSWR('/api/mint/meta', mintMetaFetcher)
+    const isLoading = !priceData.error && !priceData.data && !error && !data
 
     function setAmount(newAmount: number) {
-        if (newAmount < minAmount || newAmount > maxAmount) return
+        if (!data?.minAmount || !data?.maxAmount) return
+        if (newAmount < data.minAmount || newAmount > data.maxAmount) return
         _setAmount(newAmount)
     }
 
     return {
         amount: _amount,
-        minAmount,
-        maxAmount,
         setAmount,
-        price: isLoading ? 0 : (data * _amount),
+        minAmount: data?.minAmount,
+        maxAmount: data?.maxAmount,
+        freeMint: data?.freeMint,
+        price: isLoading ? '0' : ((priceData.data * _amount) - (data?.freeMint ? priceData.data : 0)).toFixed(2),
         isLoading,
         error: error?.message
     }
@@ -44,7 +59,7 @@ export function useMint(shouldMint: boolean, amount: number): {
     mutate: KeyedMutator<any>,
     error?: string
 } {
-    const { data, mutate, error } = useSWR(shouldMint ? ['mint', amount] : null, mintFetcher)
+    const { data, mutate, error } = useSWR(shouldMint ? ['/api/mint', amount] : null, mintFetcher)
 
     return {
         images: data,
@@ -59,7 +74,7 @@ export function useWallet(shouldConnect: boolean): {
     isLoading: boolean,
     error?: string
 } {
-    const { data, error } = useSWR(shouldConnect ? 'wallet' : null, walletFetcher)
+    const { data, error } = useSWR(shouldConnect ? '/api/wallet' : null, walletFetcher)
     return {
         address: data,
         isLoading: shouldConnect && !error && !data,
@@ -75,6 +90,6 @@ export function useHonoraries(): {
     }>
     isLoading: boolean
 } {
-    const { data, error } = useSWR('honorData', honorariesFetcher)
+    const { data, error } = useSWR('/api/honoraries', honorariesFetcher)
     return { data, isLoading: !error && !data }
 }

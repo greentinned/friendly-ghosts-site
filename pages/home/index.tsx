@@ -3,7 +3,13 @@ import Modal from 'react-modal'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import useSystemTheme from 'use-system-theme'
-import { useHonoraries, useMintPrice, useWallet, useMint } from '../../hooks'
+import {
+    useHonoraries,
+    useMintPrice,
+    useMintCalc,
+    useWallet,
+    useMint
+} from '../../hooks'
 import constStyles from '../../styles/constants.module.css'
 import helperStyles from '../../styles/helpers.module.css'
 import styles from './Home.module.css'
@@ -51,22 +57,10 @@ const Home: NextPage = () => {
     const [isMintErrorModalReady, setMintErrorModalReady] = useState(false)
     const [shouldConnectWallet, setShouldConnectWallet] = useState(false)
     const [shouldMint, setShouldMint] = useState(false)
-
-    const {
-        amount: mintAmount,
-        minAmount: mintMinAmount,
-        maxAmount: mintMaxAmount,
-        setAmount: setMintAmount,
-        price: mintPrice,
-    } = useMintPrice()
-
-    const {
-        address: walletAddress,
-        isLoading: isWalletLoading,
-        error: walletError
-    } = useWallet(shouldConnectWallet)
-
-    const mintData = useMint(shouldMint, mintAmount)
+    const mintPrice = useMintPrice()
+    const mintCalc = useMintCalc()
+    const wallet = useWallet(shouldConnectWallet)
+    const mintData = useMint(shouldMint, mintCalc.amount)
     console.log(mintData)
 
     const cn = `${styles.container} ${constStyles.typo} ${constStyles['theme__' + systemTheme] || constStyles.theme__light
@@ -132,22 +126,24 @@ const Home: NextPage = () => {
                 <div className={styles.modalMintAmount}>
                     <div className={styles.modalMintCounter}>
                         <IconButton
-                            disabled={mintAmount <= mintMinAmount}
+                            disabled={!!mintCalc.minAmount && (mintCalc.amount <= mintCalc.minAmount)}
                             icon={<Icon type="minus" />}
                             invert
-                            onRelease={() => { setMintAmount(mintAmount - 1) }}
+                            onRelease={() => { mintCalc.setAmount(mintCalc.amount - 1) }}
                         />
-                        <Heading1 invert>{mintAmount}</Heading1>
+                        <Heading1 invert>{mintCalc.amount}</Heading1>
                         <IconButton
-                            disabled={mintAmount >= mintMaxAmount}
+                            disabled={!!mintCalc.maxAmount && (mintCalc.amount >= mintCalc.maxAmount)}
                             icon={<Icon type="plus" />}
                             invert
-                            onRelease={() => { setMintAmount(mintAmount + 1) }}
+                            onRelease={() => { mintCalc.setAmount(mintCalc.amount + 1) }}
                         />
                     </div>
-                    <Heading1 invert>{mintPrice} eth</Heading1>
+                    <Heading1 invert>{mintCalc.price} eth</Heading1>
                 </div>
-                <div className={styles.modalMintButtons}>
+                <div
+                    className={`${styles.modalMintButtons} ${mintCalc?.freeMint ? styles.modalMintFreeMintLabel : ''}`.trim()}
+                >
                     <MintButton
                         title="Mint"
                         max
@@ -234,9 +230,9 @@ const Home: NextPage = () => {
 
             <main className={styles.main}>
                 <Header
-                    isWalletDisabled={isWalletLoading}
-                    walletAddress={walletAddress}
-                    walletError={walletError}
+                    isWalletDisabled={wallet.isLoading}
+                    walletAddress={wallet.address}
+                    walletError={wallet.error}
                     onConnectWallet={() => { setShouldConnectWallet(true) }}
                 />
                 <Moon />
@@ -276,7 +272,7 @@ const Moon = () => {
 
 const MainSection: FC<{ onMint(): void }> = (props) => {
     const { onMint } = props
-    const { price: mintPrice, isLoading } = useMintPrice()
+    const mintPrice = useMintPrice()
 
     return (
         <div className={styles.mainSection}>
@@ -295,7 +291,7 @@ const MainSection: FC<{ onMint(): void }> = (props) => {
                         </Paragraph>
                         <div className={styles.mintButtonWrapper}>
                             <MintButton
-                                title={`Mint for ${isLoading ? '...' : mintPrice} eth`}
+                                title={`Mint for ${mintPrice.isLoading ? '...' : mintPrice.price} eth`}
                                 onRelease={() => { onMint() }}
                                 main
                             />
@@ -326,7 +322,7 @@ const MainSection: FC<{ onMint(): void }> = (props) => {
 
 const DetailSection: FC<{ onMint(): void }> = (props) => {
     const { onMint } = props
-    const { price: mintPrice, isLoading: isMintPriceLoading } = useMintPrice()
+    const mintPrice = useMintPrice()
     return (
         <div className={styles.detailSection}>
             <div className={visibility(styles.detailSectionGhostsWrapper, 'mobile')}>
@@ -343,7 +339,7 @@ const DetailSection: FC<{ onMint(): void }> = (props) => {
                         subtitle="Hand drawn by a female artist"
                     />
                     <DetailSectionItem
-                        title={`${isMintPriceLoading ? '...' : mintPrice} eth`}
+                        title={`${mintPrice.isLoading ? '...' : mintPrice.price} eth`}
                         subtitle="+ 2.5% artist royalties on resells"
                     />
                     <div className={styles.detailSectionMintButton}>
