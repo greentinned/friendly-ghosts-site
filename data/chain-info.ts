@@ -1,7 +1,7 @@
-export const CHAIN_ID = 3
+export const CHAIN_ID = 1
 export const CHAIN_ID_HEX = '0x' + CHAIN_ID.toString(16)
 
-export const TOKEN_ADDRESS = '0x8523493b4F6587Eba9C0Adec7F8b99C636D47f91'
+export const TOKEN_ADDRESS = '0x78ccad4dA0a92A94f95405cF151F73E6A3C4c279'
 
 export const TOKEN_ABI = [
     {
