@@ -3,13 +3,7 @@ import Modal from 'react-modal'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import useSystemTheme from 'use-system-theme'
-import {
-    useHonoraries,
-    useMintPrice,
-    useMintCalc,
-    useWallet,
-    useMint
-} from '../../hooks'
+import { useHonoraries, useMintPrice, useMintCalc, useMint } from '../../hooks'
 import constStyles from '../../styles/constants.module.css'
 import helperStyles from '../../styles/helpers.module.css'
 import styles from './Home.module.css'
@@ -41,9 +35,10 @@ import {
     IconButton,
     Icon,
     GhostCard,
-} from '../../components'
-import { visibility } from '../../components/visibility'
+} from '..'
+import { visibility } from '../visibility'
 import { randArb } from '../../helpers'
+import { useConnection } from '../../hooks/useConnection'
 
 const metaUrl = process.env.NEXT_PUBLIC_HOST
 const metaPreviewUrl = `${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_HOST_ROOT}`
@@ -55,16 +50,13 @@ const Home: NextPage = () => {
     const [isMintModalOpen, setMintModalOpen] = useState(false)
     const [isMintResultModalReady, setMintResultModalReady] = useState(false)
     const [isMintErrorModalReady, setMintErrorModalReady] = useState(false)
-    const [shouldConnectWallet, setShouldConnectWallet] = useState(false)
-    const [shouldMint, setShouldMint] = useState(false)
-    const mintPrice = useMintPrice()
-    const mintCalc = useMintCalc()
-    const wallet = useWallet(shouldConnectWallet)
-    const mintData = useMint(shouldMint, mintCalc.amount)
-    console.log(mintData)
+    const { connection, activate, readableError } = useConnection()
+    const mintCalc = useMintCalc(connection)
+    const { mintState, mint, invalidate } = useMint(connection)
 
-    const cn = `${styles.container} ${constStyles.typo} ${constStyles['theme__' + systemTheme] || constStyles.theme__light
-        }`.trim()
+    const cn = `${styles.container} ${constStyles.typo} ${
+        constStyles['theme__' + systemTheme] || constStyles.theme__light
+    }`.trim()
 
     return (
         <div className={cn}>
@@ -91,7 +83,10 @@ const Home: NextPage = () => {
                     property="og:description"
                     content="Your non-toxic online identity for the most supportive community ever."
                 />
-                <meta property="og:image" content={`${metaPreviewUrl}/img/post.png`} />
+                <meta
+                    property="og:image"
+                    content={`${metaPreviewUrl}/img/post.png`}
+                />
 
                 {/* <!-- Twitter --> */}
                 <meta property="twitter:card" content="summary_large_image" />
@@ -114,7 +109,7 @@ const Home: NextPage = () => {
             {/* Mint Modal */}
 
             <Modal
-                isOpen={isMintModalOpen}
+                isOpen={connection.active && isMintModalOpen}
                 onRequestClose={() => setMintModalOpen(false)}
                 contentLabel="Mint modal"
                 className={styles.modalContent}
@@ -122,36 +117,51 @@ const Home: NextPage = () => {
                 overlayClassName={styles.modalOverlay}
             >
                 <Heading1 invert>Mint your ghosts</Heading1>
-                <Paragraph invert styles={[styles.modalMintSubtitle]}>how many ghosts do you want?</Paragraph>
+                <Paragraph invert styles={[styles.modalMintSubtitle]}>
+                    how many ghosts do you want?
+                </Paragraph>
                 <div className={styles.modalMintAmount}>
                     <div className={styles.modalMintCounter}>
                         <IconButton
-                            disabled={!!mintCalc.minAmount && (mintCalc.amount <= mintCalc.minAmount)}
+                            disabled={
+                                mintCalc.minAmount !== undefined &&
+                                mintCalc.amount <= mintCalc.minAmount
+                            }
                             icon={<Icon type="minus" />}
                             invert
-                            onRelease={() => { mintCalc.setAmount(mintCalc.amount - 1) }}
+                            onRelease={() => {
+                                mintCalc.setAmount(mintCalc.amount - 1)
+                            }}
                         />
                         <Heading1 invert>{mintCalc.amount}</Heading1>
                         <IconButton
-                            disabled={!!mintCalc.maxAmount && (mintCalc.amount >= mintCalc.maxAmount)}
+                            disabled={
+                                mintCalc.maxAmount !== undefined &&
+                                mintCalc.amount >= mintCalc.maxAmount
+                            }
                             icon={<Icon type="plus" />}
                             invert
-                            onRelease={() => { mintCalc.setAmount(mintCalc.amount + 1) }}
+                            onRelease={() => {
+                                mintCalc.setAmount(mintCalc.amount + 1)
+                            }}
                         />
                     </div>
                     <Heading1 invert>{mintCalc.price} eth</Heading1>
                 </div>
                 <div
-                    className={`${styles.modalMintButtons} ${mintCalc?.freeMint ? styles.modalMintFreeMintLabel : ''}`.trim()}
+                    className={`${styles.modalMintButtons} ${
+                        mintCalc?.freeMint ? styles.modalMintFreeMintLabel : ''
+                    }`.trim()}
                 >
                     <MintButton
                         title="Mint"
                         max
+                        disabled={mintCalc.amount === 0}
                         onRelease={() => {
                             setMintModalOpen(false)
-                            setShouldMint(true)
                             setMintResultModalReady(true)
                             setMintErrorModalReady(true)
+                            mint(mintCalc.price)
                         }}
                     />
                     <Button
@@ -166,79 +176,101 @@ const Home: NextPage = () => {
 
             {/* Mint in progress Modal */}
 
-            <Modal
-                isOpen={mintData.isLoading}
-                contentLabel="Minting modal"
-                className={styles.modalMintingContent}
-                portalClassName={cn}
-                overlayClassName={styles.modalOverlay}
-            >
-                <Hero styles={[styles.modalMintingContentTitle]}>Mint your ghosts</Hero>
-                <Image src={tildaSign} alt="Minting in progress" />
-            </Modal>
+            {mintState.type === 'LOADING' && (
+                <Modal
+                    isOpen={mintState.type === 'LOADING'}
+                    contentLabel="Minting modal"
+                    className={styles.modalMintingContent}
+                    portalClassName={cn}
+                    overlayClassName={styles.modalOverlay}
+                >
+                    <Hero styles={[styles.modalMintingContentTitle]}>
+                        Minting your ghosts
+                    </Hero>
+                    <Image src={tildaSign} alt="Minting in progress" />
+                </Modal>
+            )}
 
             {/* Mint error Modal  */}
-
-            <Modal
-                isOpen={isMintErrorModalReady && mintData.error !== undefined}
-                contentLabel="Mint error modal"
-                className={styles.modalMintErrorContent}
-                portalClassName={cn}
-                overlayClassName={styles.modalOverlay}
-            >
-                <Hero styles={[styles.modalMintErrorContentTitle]}>Oops</Hero>
-                <Image src={dashSign} alt="Delimeter" />
-                <Paragraph center>{mintData.error}</Paragraph>
-                <Button
-                    title="Oh, that's sad"
-                    onRelease={() => {
-                        mintData.mutate(undefined, false)
-                        setShouldMint(false)
-                        setMintErrorModalReady(false)
-                    }}
-                />
-            </Modal>
+            {mintState.type === 'FAILED' && (
+                <Modal
+                    isOpen={isMintErrorModalReady}
+                    contentLabel="Mint error modal"
+                    className={styles.modalMintErrorContent}
+                    portalClassName={cn}
+                    overlayClassName={styles.modalOverlay}
+                >
+                    <Hero styles={[styles.modalMintErrorContentTitle]}>
+                        Oops
+                    </Hero>
+                    <Image src={dashSign} alt="Delimeter" />
+                    <Paragraph center>{String(mintState.error)}</Paragraph>
+                    <Button
+                        title="Oh, that's sad"
+                        onRelease={() => {
+                            invalidate()
+                            setMintErrorModalReady(false)
+                        }}
+                    />
+                </Modal>
+            )}
 
             {/* Mint result Modal  */}
 
-            <Modal
-                isOpen={isMintResultModalReady && mintData.images !== undefined}
-                contentLabel="Mint result modal"
-                className={styles.modalMintResultContent}
-                portalClassName={cn}
-                overlayClassName={styles.modalOverlay}
-            >
-                <Hero styles={[styles.modalMintResultContentTitle]}>Aha! We caught it</Hero>
-                <div className={styles.modalMintResultContentScroll}>
-                    <div className={styles.modalMintResultContentScrollContent}>
-                        {mintData.images?.map((i, idx) => <GhostCard key={`${i}-${idx}`} url={i} />)}
+            {mintState.type === 'SUCCEED' && (
+                <Modal
+                    isOpen={isMintResultModalReady}
+                    contentLabel="Mint result modal"
+                    className={styles.modalMintResultContent}
+                    portalClassName={cn}
+                    overlayClassName={styles.modalOverlay}
+                >
+                    <Hero styles={[styles.modalMintResultContentTitle]}>
+                        Aha! We caught it
+                    </Hero>
+                    <div className={styles.modalMintResultContentScroll}>
+                        <div
+                            className={
+                                styles.modalMintResultContentScrollContent
+                            }
+                        >
+                            {mintState.payload?.map((id) => (
+                                <GhostCard key={id} id={id} />
+                            ))}
+                        </div>
                     </div>
-                </div>
-                <div className={styles.modalMintResultContentButtonWrapper}>
-                    <Button
-                        title="Close"
-                        style={styles.modalMintResultContentButton}
-                        onRelease={() => {
-                            mintData.mutate(undefined, false)
-                            setShouldMint(false)
-                            setMintResultModalReady(false)
-                        }}
-                    />
-                </div>
-            </Modal>
-
+                    <div className={styles.modalMintResultContentButtonWrapper}>
+                        <Button
+                            title="Close"
+                            style={styles.modalMintResultContentButton}
+                            onRelease={() => {
+                                setMintResultModalReady(false)
+                                mintCalc.invalidateMintMeta()
+                                invalidate()
+                            }}
+                        />
+                    </div>
+                </Modal>
+            )}
 
             <main className={styles.main}>
                 <Header
-                    isWalletDisabled={wallet.isLoading}
-                    walletAddress={wallet.address}
-                    walletError={wallet.error}
-                    onConnectWallet={() => { setShouldConnectWallet(true) }}
+                    walletAddress={connection.account}
+                    onConnectWallet={activate}
+                    walletError={readableError}
                 />
                 <Moon />
                 <div className={styles.contentWrapper}>
-                    <MainSection onMint={() => { setMintModalOpen(true) }} />
-                    <DetailSection onMint={() => { setMintModalOpen(true) }} />
+                    <MainSection
+                        onMint={() => {
+                            activate().then(() => setMintModalOpen(true))
+                        }}
+                    />
+                    <DetailSection
+                        onMint={() => {
+                            activate().then(() => setMintModalOpen(true))
+                        }}
+                    />
                     <TraitsSection />
                     <SocialSection />
                     <TeamSection />
@@ -291,8 +323,14 @@ const MainSection: FC<{ onMint(): void }> = (props) => {
                         </Paragraph>
                         <div className={styles.mintButtonWrapper}>
                             <MintButton
-                                title={`Mint for ${mintPrice.isLoading ? '...' : mintPrice.price} eth`}
-                                onRelease={() => { onMint() }}
+                                title={`Mint for ${
+                                    mintPrice.isLoading
+                                        ? '...'
+                                        : mintPrice.price
+                                } eth`}
+                                onRelease={() => {
+                                    onMint()
+                                }}
                                 main
                             />
                             <Caption styles={[helperStyles.mobileHidden]}>
@@ -325,7 +363,12 @@ const DetailSection: FC<{ onMint(): void }> = (props) => {
     const mintPrice = useMintPrice()
     return (
         <div className={styles.detailSection}>
-            <div className={visibility(styles.detailSectionGhostsWrapper, 'mobile')}>
+            <div
+                className={visibility(
+                    styles.detailSectionGhostsWrapper,
+                    'mobile'
+                )}
+            >
                 <div className={styles.detailSectionGhosts} />
             </div>
             <div className={styles.detailSectionContent}>
@@ -339,18 +382,27 @@ const DetailSection: FC<{ onMint(): void }> = (props) => {
                         subtitle="Hand drawn by a female artist"
                     />
                     <DetailSectionItem
-                        title={`${mintPrice.isLoading ? '...' : mintPrice.price} eth`}
+                        title={`${
+                            mintPrice.isLoading ? '...' : mintPrice.price
+                        } eth`}
                         subtitle="+ 2.5% artist royalties on resells"
                     />
                     <div className={styles.detailSectionMintButton}>
                         <MintButton
                             title="Mint"
                             wide
-                            onRelease={() => { onMint() }}
+                            onRelease={() => {
+                                onMint()
+                            }}
                         />
                     </div>
                 </div>
-                <div className={visibility(styles.detailSectionGhosts, 'desktop')} />
+                <div
+                    className={visibility(
+                        styles.detailSectionGhosts,
+                        'desktop'
+                    )}
+                />
             </div>
         </div>
     )
@@ -375,7 +427,10 @@ const DetailSectionItem: FC<{ title: string; subtitle: string }> = ({
 const TraitsSection: FC = () => {
     return (
         <div className={styles.traitsSection}>
-            <TraitsSectionItem title="you can be in a cute hat..." src={ghost1} />
+            <TraitsSectionItem
+                title="you can be in a cute hat..."
+                src={ghost1}
+            />
             <Visibility desktop>
                 <TraitsSectionItem
                     title="... cool glasses and a suit..."
@@ -389,23 +444,29 @@ const TraitsSection: FC = () => {
                     src={ghost2}
                 />
             </Visibility>
-            <TraitsSectionItem title="... or not so ghostly at all" src={ghost3} />
+            <TraitsSectionItem
+                title="... or not so ghostly at all"
+                src={ghost3}
+            />
         </div>
     )
 }
 
-const TraitsSectionItem: FC<{ title: string; src: string; reverse?: boolean }> =
-    ({ title, src, reverse }) => {
-        return (
-            <div className={styles.traitsSectionItem}>
-                {reverse ? <Heading2>{title}</Heading2> : ''}
-                <div>
-                    <Image src={src} alt="Traits" width={480} height={480} />
-                </div>
-                {reverse ? '' : <Heading2>{title}</Heading2>}
+const TraitsSectionItem: FC<{
+    title: string
+    src: string
+    reverse?: boolean
+}> = ({ title, src, reverse }) => {
+    return (
+        <div className={styles.traitsSectionItem}>
+            {reverse ? <Heading2>{title}</Heading2> : ''}
+            <div>
+                <Image src={src} alt="Traits" width={480} height={480} />
             </div>
-        )
-    }
+            {reverse ? '' : <Heading2>{title}</Heading2>}
+        </div>
+    )
+}
 
 /*
  * Social Section
@@ -447,13 +508,19 @@ const SocialSectionItem: FC<{
             className={styles.socialSectionItem}
         >
             <div
-                className={`${styles.socialSectionItemIcon} ${styles[`socialSectionItemIcon__${icon}`]
-                    }`}
+                className={`${styles.socialSectionItemIcon} ${
+                    styles[`socialSectionItemIcon__${icon}`]
+                }`}
             ></div>
             <div className={styles.socialSectionItemContent}>
-                <Paragraph styles={[styles.socialSectionItemText]}>{title}</Paragraph>
+                <Paragraph styles={[styles.socialSectionItemText]}>
+                    {title}
+                </Paragraph>
                 <Paragraph
-                    styles={[styles.socialSectionItemText, styles.socialSectionItemLink]}
+                    styles={[
+                        styles.socialSectionItemText,
+                        styles.socialSectionItemLink,
+                    ]}
                 >
                     {linkText}
                 </Paragraph>
@@ -529,7 +596,9 @@ const TeamSectionPerson: FC<{
                 <div className={styles.teamSectionPersonId}>
                     <Heading3>{name}</Heading3>
                     <Caption>@{social}</Caption>
-                    <Caption styles={[styles.teamSectionPersonRole]}>{role}</Caption>
+                    <Caption styles={[styles.teamSectionPersonRole]}>
+                        {role}
+                    </Caption>
                 </div>
             </div>
         </a>
@@ -552,13 +621,13 @@ const HonorariesSection: FC = () => {
                 {isLoading
                     ? ''
                     : data.map((i, idx) => (
-                        <HonorariesSectionPerson
-                            key={`${i.name}_${idx}`}
-                            src={i.src}
-                            twitter={i.name}
-                            twitterUrl={i.twitterUrl}
-                        />
-                    ))}
+                          <HonorariesSectionPerson
+                              key={`${i.name}_${idx}`}
+                              src={i.src}
+                              twitter={i.name}
+                              twitterUrl={i.twitterUrl}
+                          />
+                      ))}
             </div>
         </div>
     )
@@ -578,7 +647,9 @@ const HonorariesSectionPerson: FC<{
         >
             <div
                 className={styles.honorariesSectionPerson}
-                style={{ transform: `rotateZ(${Math.floor(randArb(-3, 3))}deg)` }}
+                style={{
+                    transform: `rotateZ(${Math.floor(randArb(-3, 3))}deg)`,
+                }}
             >
                 <Image
                     src={src}

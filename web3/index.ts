@@ -1,12 +1,9 @@
 import { honorData } from '../data'
-import { sleep } from '../helpers'
 
-export async function walletFetcher(): Promise<any> {
-    // TODO: Should throw if error
-    // https://swr.vercel.app/docs/error-handling
-    await sleep(3000)
-    return Promise.resolve('0xF00...BAR')
-}
+import { ethers } from 'ethers'
+import { TOKEN_ADDRESS, TOKEN_ABI } from '../data/chain-info'
+
+const tokenBlueprint = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI)
 
 export async function honorariesFetcher(): Promise<any> {
     // TODO: Should throw if error
@@ -20,35 +17,55 @@ export async function mintPriceFetcher(_url: string): Promise<any> {
     return Promise.resolve(0.02)
 }
 
-export async function mintMetaFetcher(_url: string): Promise<{
-    minAmount: number,
-    maxAmount: number,
-    freeMint: boolean,
+export async function mintMetaFetcher(connection: any): Promise<{
+    minAmount: number
+    maxAmount: number
+    freeMint: boolean
 }> {
-    await sleep(1000)
-    // TODO: Should throw if error
-    // https://swr.vercel.app/docs/error-handling
+    const signer = await connection.library.getSigner()
+    const token = tokenBlueprint.connect(signer)
+
+    const [reservedId, currentId, maxSupply] = await Promise.all([
+        token.reservers(connection.account),
+        token.currentId(),
+        token.maxSupply(),
+    ])
+
+    const maxAmount = Math.min(20, maxSupply - currentId)
+    const minAmount = Math.min(1, maxAmount)
+
+    console.log({
+        maxAmount,
+        minAmount,
+        currentId,
+        maxSupply,
+    })
+
     return {
-        minAmount: 1,
-        maxAmount: 20,
-        freeMint: true
+        minAmount,
+        maxAmount,
+        freeMint: !!reservedId,
     }
 }
 
-export async function mintFetcher(_url: string, amount: number): Promise<any> {
-    await sleep(3000)
+export async function mintFetcher(
+    connection: any,
+    amount: string
+): Promise<any> {
+    try {
+        const signer = await connection.library.getSigner()
+        const token = tokenBlueprint.connect(signer)
 
-    // TODO: Should throw if error
-    // https://swr.vercel.app/docs/error-handling
-    if (amount == 4) { // this error if for testing
-        const error = new Error('An error occurred while fetching the data.')
-        throw error
+        const tx = await token.mint({
+            value: ethers.utils.parseEther(String(amount)),
+        })
+        const recipe = await tx.wait()
+
+        const tokenIds = recipe.events.map((e: any) => e.args[2].toNumber())
+
+        return Promise.resolve(tokenIds)
+    } catch (err) {
+        console.error(err)
+        throw new Error('Transaction error')
     }
-
-    const data: Array<string> = []
-    for (let i = 1; i <= amount; i++) {
-        data.push('https://friendlyghosts.xyz//_next/static/media/17.331e9a80.jpeg?w=1200&q=75')
-    }
-
-    return Promise.resolve(data)
 }

@@ -4,14 +4,15 @@ import Logo from '../logo'
 import SocialButton from '../social_button'
 
 export interface HeaderProps {
-    walletAddress?: string
+    walletAddress?: string | null
     walletError?: string
     isWalletDisabled?: boolean
     onConnectWallet(): void
 }
 
 const Header = (props: HeaderProps) => {
-    const { walletAddress, walletError, isWalletDisabled, onConnectWallet } = props
+    const { walletAddress, walletError, isWalletDisabled, onConnectWallet } =
+        props
 
     return (
         <div className={styles.main}>

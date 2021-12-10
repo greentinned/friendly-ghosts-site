@@ -2,11 +2,13 @@ import styles from './WalletButton.module.css'
 import Button from '../button'
 
 export interface WalletButtonProps {
-    address?: string
+    address?: string | null
     error?: string
     disabled?: boolean
     onRelease(): void
 }
+
+const fmtAddress = (addr: string) => `${addr.slice(0, 5)}...${addr.slice(-4)}`
 
 const WalletButton = (props: WalletButtonProps) => {
     const { address, disabled, error, onRelease } = props
@@ -14,7 +16,7 @@ const WalletButton = (props: WalletButtonProps) => {
 
     return (
         <Button
-            title={address || 'connect'}
+            title={address ? fmtAddress(address) : 'connect'}
             subtitle={error}
             style={cn}
             onRelease={onRelease}
