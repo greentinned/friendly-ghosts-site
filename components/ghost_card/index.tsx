@@ -8,12 +8,12 @@ const GhostCard: FC<{ id: number }> = (props) => {
     const { id } = props
     const [stableArb] = useState(() => Math.floor(randArb(-3, 3)))
 
-    const [url, setUrl] = useState('./placeholder.svg')
+    const [url, setUrl] = useState('/images/placeholder.svg')
 
     useEffect(() => {
         let isCurrent = true
 
-        const imageUrl = '/image/' + id
+        const imageUrl = '/images/' + id
 
         fetch(imageUrl).then((res) => {
             if (res.ok && isCurrent) {
@@ -39,7 +39,7 @@ const GhostCard: FC<{ id: number }> = (props) => {
                     Share to twitter ➚
                 </a>
             </Paragraph> */}
-            <Paragraph invert>FriendlyGhost#{id}</Paragraph>
+            <Paragraph invert>FriendlyGhost #{id}</Paragraph>
         </div>
     )
 }
