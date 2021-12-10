@@ -187,7 +187,11 @@ const Home: NextPage = () => {
                     <Hero styles={[styles.modalMintingContentTitle]}>
                         Minting your ghosts
                     </Hero>
-                    <Image src={tildaSign} alt="Minting in progress" />
+                    <Image
+                        src={tildaSign}
+                        alt="Minting in progress"
+                        className={styles.modalMintingContentTildaSign}
+                    />
                 </Modal>
             )}
 

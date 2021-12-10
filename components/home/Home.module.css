@@ -114,6 +114,20 @@
 .modalMintingContentTitle {
     text-align: center;
 }
+.modalMintingContentTildaSign {
+    animation: blink 3s infinite;
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 .modalMintErrorContent {
     display: flex;
