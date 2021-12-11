@@ -3,7 +3,14 @@ import Modal from 'react-modal'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import useSystemTheme from 'use-system-theme'
-import { useHonoraries, useMintPrice, useMintCalc, useMint } from '../../hooks'
+import {
+    useHonoraries,
+    useMintPrice,
+    useMintCalc,
+    useMint,
+    useMintSupply,
+    useCountdown,
+} from '../../hooks'
 import constStyles from '../../styles/constants.module.css'
 import helperStyles from '../../styles/helpers.module.css'
 import styles from './Home.module.css'
@@ -309,6 +316,14 @@ const Moon = () => {
 const MainSection: FC<{ onMint(): void }> = (props) => {
     const { onMint } = props
     const mintPrice = useMintPrice()
+    const mintSupply = useMintSupply()
+    const countdown = useCountdown()
+    const mintButtonString = countdown.isDone
+        ? `Mint for ${mintPrice.isLoading ? '...' : mintPrice.price} eth`
+        : `${countdown.time} to launch`
+    const mintSupplySting = mintSupply.isLoading
+        ? '... of ...'
+        : `${mintSupply.supply} of ${mintSupply.totalSupply}`
 
     return (
         <div className={styles.mainSection}>
@@ -327,18 +342,15 @@ const MainSection: FC<{ onMint(): void }> = (props) => {
                         </Paragraph>
                         <div className={styles.mintButtonWrapper}>
                             <MintButton
-                                title={`Mint for ${
-                                    mintPrice.isLoading
-                                        ? '...'
-                                        : mintPrice.price
-                                } eth`}
+                                title={mintButtonString}
                                 onRelease={() => {
                                     onMint()
                                 }}
+                                disabled={!countdown.isDone}
                                 main
                             />
                             <Caption styles={[helperStyles.mobileHidden]}>
-                                Become <br /> a friendly ghost
+                                {mintSupplySting} <br /> ghosts left
                             </Caption>
                         </div>
                     </div>
@@ -365,6 +377,10 @@ const MainSection: FC<{ onMint(): void }> = (props) => {
 const DetailSection: FC<{ onMint(): void }> = (props) => {
     const { onMint } = props
     const mintPrice = useMintPrice()
+    const countdown = useCountdown()
+    const mintButtonString = countdown.isDone
+        ? 'Mint'
+        : `${countdown.time} to launch`
     return (
         <div className={styles.detailSection}>
             <div
@@ -393,7 +409,8 @@ const DetailSection: FC<{ onMint(): void }> = (props) => {
                     />
                     <div className={styles.detailSectionMintButton}>
                         <MintButton
-                            title="Mint"
+                            title={mintButtonString}
+                            disabled={!countdown.isDone}
                             wide
                             onRelease={() => {
                                 onMint()

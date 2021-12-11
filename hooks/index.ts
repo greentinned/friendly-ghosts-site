@@ -1,11 +1,57 @@
 import useSWR, { KeyedMutator, useSWRConfig } from 'swr'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     mintPriceFetcher,
     mintMetaFetcher,
     mintFetcher,
     honorariesFetcher,
+    mintSupplyFetcher,
 } from '../web3'
+
+export function useCountdown(): {
+    time: string
+    isDone: boolean
+} {
+    const [time, setTime] = useState('')
+    const [isDone, setIsdone] = useState(false)
+    useEffect(() => {
+        const now = new Date()
+        const fut = new Date('12/11/2021 06:00 PM UTC')
+        const distance = fut.getTime() - now.getTime()
+
+        if (distance <= 0) {
+            setIsdone(true)
+            return
+        }
+
+        const second = 1000
+        const minute = second * 60
+        const hour = minute * 60
+        const day = hour * 24
+
+        const hours = Math.floor((distance % day) / hour)
+            .toString()
+            .padStart(2, '0')
+        const minutes = Math.floor((distance % hour) / minute)
+            .toString()
+            .padStart(2, '0')
+        const seconds = Math.floor((distance % minute) / second)
+            .toString()
+            .padStart(2, '0')
+        const timeString = `${hours}:${minutes}:${seconds}`
+
+        const intervalId = setInterval(() => {
+            setTime(timeString)
+        }, 1000)
+
+        return () => clearInterval(intervalId)
+    }, [time])
+
+    return {
+        time: time,
+        isDone: isDone,
+    }
+}
 
 export function useMintPrice(): {
     price?: number
@@ -15,6 +61,20 @@ export function useMintPrice(): {
     const isLoading = !error && !data
     return {
         price: data,
+        isLoading,
+    }
+}
+
+export function useMintSupply(): {
+    supply?: number
+    totalSupply?: number
+    isLoading: boolean
+} {
+    const { data, error } = useSWR('/api/mint/supply', mintSupplyFetcher)
+    const isLoading = !error && !data
+    return {
+        supply: data?.supply,
+        totalSupply: data?.totalSupply,
         isLoading,
     }
 }

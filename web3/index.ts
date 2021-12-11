@@ -17,6 +17,16 @@ export async function mintPriceFetcher(_url: string): Promise<any> {
     return Promise.resolve(0.02)
 }
 
+export async function mintSupplyFetcher(_url: string): Promise<{
+    supply: number
+    totalSupply: number
+}> {
+    return Promise.resolve({
+        supply: 7567,
+        totalSupply: 8888,
+    })
+}
+
 export async function mintMetaFetcher(connection: any): Promise<{
     minAmount: number
     maxAmount: number
