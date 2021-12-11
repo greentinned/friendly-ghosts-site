@@ -338,7 +338,7 @@ const MainSection: FC<{ onMint(): void }> = (props) => {
                     </Paragraph>
                     <div className={styles.mintWrapper}>
                         <Paragraph styles={[helperStyles.mobileVisible]}>
-                            Become a friendly ghost
+                            {mintSupplySting} ghosts left
                         </Paragraph>
                         <div className={styles.mintButtonWrapper}>
                             <MintButton
