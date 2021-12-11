@@ -47,6 +47,10 @@
 .disabled.main {
     transform: none;
 }
+.disabled .title {
+    font-family: sans-serif;
+    font-variant-numeric: tabular-nums;
+}
 
 .wide {
     padding: 0 80px;
@@ -58,5 +62,5 @@
 
 .invert.main {
     color: var(--theme-main-text-invert);
-    border: 2px solid var(--theme-main-text-invert)/*#123B6B*/;
+    border: 2px solid var(--theme-main-text-invert) /*#123B6B*/;
 }

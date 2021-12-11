@@ -8,6 +8,13 @@ import {
     mintSupplyFetcher,
 } from '../web3'
 
+const fut = new Date('12/11/2021 06:00 PM UTC')
+
+const second = 1000
+const minute = second * 60
+const hour = minute * 60
+const day = hour * 24
+
 export function useCountdown(): {
     time: string
     isDone: boolean
@@ -15,37 +22,31 @@ export function useCountdown(): {
     const [time, setTime] = useState('')
     const [isDone, setIsdone] = useState(false)
     useEffect(() => {
-        const now = new Date()
-        const fut = new Date('12/11/2021 06:00 PM UTC')
-        const distance = fut.getTime() - now.getTime()
-
-        if (distance <= 0) {
-            setIsdone(true)
-            return
-        }
-
-        const second = 1000
-        const minute = second * 60
-        const hour = minute * 60
-        const day = hour * 24
-
-        const hours = Math.floor((distance % day) / hour)
-            .toString()
-            .padStart(2, '0')
-        const minutes = Math.floor((distance % hour) / minute)
-            .toString()
-            .padStart(2, '0')
-        const seconds = Math.floor((distance % minute) / second)
-            .toString()
-            .padStart(2, '0')
-        const timeString = `${hours}:${minutes}:${seconds}`
-
         const intervalId = setInterval(() => {
+            const now = new Date()
+            const distance = fut.getTime() - now.getTime()
+
+            if (distance <= 0) {
+                setIsdone(true)
+                return
+            }
+
+            const hours = Math.floor((distance % day) / hour)
+                .toString()
+                .padStart(2, '0')
+            const minutes = Math.floor((distance % hour) / minute)
+                .toString()
+                .padStart(2, '0')
+            const seconds = Math.floor((distance % minute) / second)
+                .toString()
+                .padStart(2, '0')
+            const timeString = `${hours}:${minutes}:${seconds}`
+
             setTime(timeString)
         }, 1000)
 
         return () => clearInterval(intervalId)
-    }, [time])
+    }, [])
 
     return {
         time: time,
@@ -70,7 +71,9 @@ export function useMintSupply(): {
     totalSupply?: number
     isLoading: boolean
 } {
-    const { data, error } = useSWR('/api/mint/supply', mintSupplyFetcher)
+    const { data, error } = useSWR('/api/mint/supply', mintSupplyFetcher, {
+        refreshInterval: 5000,
+    })
     const isLoading = !error && !data
     return {
         supply: data?.supply,
@@ -91,7 +94,6 @@ export function useMintCalc(connection: any): {
     error?: string
     invalidateMintMeta: () => void
 } {
-    console.log(connection.account)
     const { mutate } = useSWRConfig()
     const [_amount, _setAmount] = useState(1)
     const priceData = useSWR('/api/mint/price', mintPriceFetcher)
@@ -99,7 +101,6 @@ export function useMintCalc(connection: any): {
         () => '/api/mint/meta/' + connection.account,
         () => mintMetaFetcher(connection)
     )
-    console.log(data, error)
     const isLoading = !priceData.error && !priceData.data && !error && !data
 
     let maxAmount = data?.maxAmount ?? 20
