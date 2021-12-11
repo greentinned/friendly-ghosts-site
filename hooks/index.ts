@@ -1,5 +1,5 @@
 import useSWR, { KeyedMutator, useSWRConfig } from 'swr'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import {
     mintPriceFetcher,
     mintMetaFetcher,
@@ -21,8 +21,9 @@ export function useCountdown(): {
 } {
     const [time, setTime] = useState('')
     const [isDone, setIsdone] = useState(false)
-    useEffect(() => {
-        const intervalId = setInterval(() => {
+
+    useLayoutEffect(() => {
+        const processTick = () => {
             const now = new Date()
             const distance = fut.getTime() - now.getTime()
 
@@ -43,7 +44,13 @@ export function useCountdown(): {
             const timeString = `${hours}:${minutes}:${seconds}`
 
             setTime(timeString)
+        }
+
+        const intervalId = setInterval(() => {
+            processTick()
         }, 1000)
+
+        processTick()
 
         return () => clearInterval(intervalId)
     }, [])
