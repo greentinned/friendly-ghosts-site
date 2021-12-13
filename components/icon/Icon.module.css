@@ -1,8 +1,11 @@
 .main {
-    background: var(--theme-main-text-invert);
+    background: var(--theme-main-text);
 }
 
 /* Mods  */
+.main.invert {
+    background: var(--theme-main-text-invert);
+}
 
 .main.type--minus {
     mask: url(./img/minus.svg) no-repeat center center;
@@ -14,6 +17,10 @@
 
 .main.type--twitter {
     mask: url(./img/twitter.svg) no-repeat center center;
+}
+
+.main.type--discord {
+    mask: url(./img/discord.svg) no-repeat center center;
 }
 
 .main.size--m {
@@ -28,4 +35,7 @@
     min-height: 48px;
     max-width: 48px;
     max-height: 48px;
+}
+.main.type--twitter.size--l {
+    mask-size: 48px;
 }

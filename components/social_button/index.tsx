@@ -1,24 +1,16 @@
-import Image from '../image'
+import Icon, { IconProps } from '../icon'
 import styles from './SocialButton.module.css'
-import twitterSrc from './img/twitter.svg'
-import discordSrc from './img/discord.svg'
 
-export interface SocialButtonProps {
+export interface SocialButtonProps extends IconProps {
     url: string
-    type: 'discord' | 'twitter'
 }
 
 const SocialButton = (props: SocialButtonProps) => {
-    const { url, type } = props
-
-    const typeToSrc = {
-        twitter: twitterSrc,
-        discord: discordSrc,
-    }
+    const { url, ...rest } = props
 
     return (
         <a href={url} target="_blank" rel="noreferrer" className={styles.main}>
-            <Image src={typeToSrc[type]} alt="" width={56} height={56} />
+            <Icon {...rest} size="l" />
         </a>
     )
 }

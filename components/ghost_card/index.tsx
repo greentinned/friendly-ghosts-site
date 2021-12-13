@@ -1,8 +1,17 @@
 import { FC, useEffect, useState } from 'react'
+import { SocialButton, Visibility } from '..'
 import { randArb } from '../../helpers'
 /* import Icon from '../icon' */
-import { Paragraph } from '../text'
+import { Paragraph, Caption } from '../text'
 import styles from './GhostCard.module.css'
+
+const twitterIntentUrl = (text: string, via: string) =>
+    encodeURI(`https://twitter.com/intent/tweet?text=${text}&via=${via}`)
+
+const twitterUrl = twitterIntentUrl(
+    'Frens, I abandoned my real life and hereby identify as an online ghost profile picture from now on. Mint yours at https://friendlyghosts.xyz/',
+    'FriendlyFantoms'
+)
 
 const GhostCard: FC<{ id: number }> = (props) => {
     const { id } = props
@@ -34,12 +43,15 @@ const GhostCard: FC<{ id: number }> = (props) => {
             <div className={styles.placeholder}>
                 <img src={url} alt="" />
             </div>
-            {/* <Paragraph>
+            <div className={styles.title}>
+                <Caption>FriendlyGhost #{id}</Caption>
+                <SocialButton url={twitterUrl} type={'twitter'} />
+            </div>
+            {/* <Caption>
                 <a href="https://twitter.com" target="_blank" rel="noreferrer">
                     Share to twitter ➚
                 </a>
-            </Paragraph> */}
-            <Paragraph invert>FriendlyGhost #{id}</Paragraph>
+            </Caption> */}
         </div>
     )
 }

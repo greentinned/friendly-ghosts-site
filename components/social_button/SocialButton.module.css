@@ -1,5 +1,5 @@
 .main {
 }
 .main + .main {
-  padding-left: 8px;
+    padding-left: 8px;
 }

@@ -134,7 +134,7 @@ const Home: NextPage = () => {
                                 mintCalc.minAmount !== undefined &&
                                 mintCalc.amount <= mintCalc.minAmount
                             }
-                            icon={<Icon type="minus" />}
+                            icon={<Icon type="minus" invert />}
                             invert
                             onRelease={() => {
                                 mintCalc.setAmount(mintCalc.amount - 1)
@@ -146,7 +146,7 @@ const Home: NextPage = () => {
                                 mintCalc.maxAmount !== undefined &&
                                 mintCalc.amount >= mintCalc.maxAmount
                             }
-                            icon={<Icon type="plus" />}
+                            icon={<Icon type="plus" invert />}
                             invert
                             onRelease={() => {
                                 mintCalc.setAmount(mintCalc.amount + 1)
